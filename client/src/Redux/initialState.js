@@ -3,8 +3,9 @@ const initialState = {
 }
 
 const finalState = () => {
-  const localStorageState = JSON.parse(window.localStorage.getItem('user'))
-  return localStorageState ? localStorageState : initialState
+  // const localStorageState = JSON.parse(window.localStorage.getItem('user'))
+  // localStorageState ? localStorageState : 
+  return initialState
 }
 
 export default finalState

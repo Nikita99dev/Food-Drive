@@ -8,8 +8,8 @@ import rootReducer from './Reducers/rootReducer';
 const store = createStore(rootReducer, finalState(), composeWithDevTools(applyMiddleware(thunk)));
 // console.log('000000000000000000000000000000000000000000000000000000', store);
 store.subscribe(() => {
-
-  window.localStorage.setItem('user', JSON.stringify(store.getState().user));
+  console.log(store.getState().user)
+  // window.localStorage.setItem('user', JSON.stringify(store.getState().user));
 });
 
 export default store;

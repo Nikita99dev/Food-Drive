@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux"
-import { signUP } from "../../../Redux/actions/auth";
+import { useHistory } from "react-router";
+import { registerUser } from "../../../Redux/thunks/usersThunks";
+
 
 export default function SignUp() {
-
-  const [newUser, setNewUser] = useState({
-      name: '',
-      password: '',
-      email: '',
-      address: ''
+  const initstate = {
+    name: '',
+    password: '',
+    email: '',
+    address: ''
     }
-  )
+
+  const [newUser, setNewUser] = useState(initstate)
 
   const onChange = (e) => {
     setNewUser(prev => ({...prev, [e.target.name]: e.target.value }))
@@ -18,36 +20,46 @@ export default function SignUp() {
 
   const dispatch = useDispatch()
 
+  let history = useHistory();
+
+
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log('============', newUser)
-    dispatch(signUP({newUser}))
+    // let user = Object.entries(newUser).filter((el)=>el[1] ? el[1].trim(): el[1])
+    // user = Object.fromEntries(user)
+    // console.log('usersignup', user)
+    dispatch(registerUser(newUser, history))
   }
 
-
 return (
-  <form className="row g-3" onSubmit={submitHandler}>
+  <form className={`row g-3  ${newUser.name || newUser.password !== '' ? "was-validated" : "needs-validation"}`} onSubmit={submitHandler}>
     <div className="col-md-4">
       <label htmlFor="validationCustom01" className="form-label">Name</label>
-      <input type="text" className="form-control" name="name" onChange={onChange} id="validationCustom01" required />
-      <div className="valid-feedback">
-        Looks good!
-      </div>
+      <input type="text" className="form-control" name="name" onChange={onChange} value={newUser.name} id="validationCustom01" required />
+      <div className={newUser?.name === ''?"invalid-feedback":"valid-feedback"}>
+        {newUser?.name===''?"Type something":"Looks Good!"}
+    </div>
     </div>
     <div className="col-md-4">
       <label htmlFor="validationCustom02" className="form-label">Password</label>
-      <input type="password" className="form-control" name="password" onChange={onChange} id="validationCustom02" required />
-      <div className="valid-feedback">
-        Looks good!
-      </div>
+      <input type="password" className="form-control" name="password" onChange={onChange} value={newUser.password} id="validationCustom02" required />
+      <div className={newUser?.password.length > 5 ?"valid-feedback":"invalid-feedback"}>
+        {newUser?.password.length > 5 ?"Looks Good!":"Type-something"}
+    </div>
     </div>
     <div className="col-md-4">
-      <label htmlFor="validationCustom02" className="form-label">Email</label>
-      <input type="password" className="form-control" name="email" onChange={onChange} id="validationCustom" required />
+      <label htmlFor="validationCustom01" className="form-label">Email</label>
+      <input type="text" className="form-control" name="email" onChange={onChange} value={newUser.email} id="validationCustom01" required />
+      <div className={newUser?.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)?"valid-feedback":"invalid-feedback"}>
+        {newUser?.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)?"Looks Good!":"Type-something"}
+    </div>
     </div>
     <div className="col-md-6">
       <label htmlFor="validationCustom03" className="form-label">Address</label>
-      <input type="text" className="form-control" onChange={onChange} name="address" id="validationCustom03" required />
+      <input type="text" className="form-control" onChange={onChange} name="address"  value={newUser.address} id="validationCustom03" required />
+      <div className={newUser?.address !==''?"valid-feedback":"invalid-feedback"}>
+        {newUser?.address !==''?"Looks Good!":"Type-something"}
+    </div>
     </div>
     <div className="col-12">
       <div className="form-check">
@@ -66,5 +78,4 @@ return (
   </form>
 )
 }
-
-
+//5af5e7e3-5a13-4cf9-a295-273c77328f6b

@@ -1,12 +1,13 @@
 const express = require('express');
 // const { sessionChecker, sessionLoger, layoutchanger } = require('../middleware/commonmiddleware');
-
+const { User } =  require('../db/models')
 const router = express.Router();
+const { sessionChecker, sessionLoger } = require('../middlewares/common');
 // const { User, Post } = require('../db/models');
 
 // router.use(sessionLoger);
 // router.use(layoutchanger);
-
+router.use(sessionLoger)
 /* GET users listing. */
 router.get('/signup', async (req, res) => {
   res.json(1)
@@ -15,9 +16,13 @@ router.get('/signup', async (req, res) => {
 router.post('/signup', async (req, res) => {
   console.log('BACK', req.body);
   const { name, password, address, email } = req.body;
-  console.log(name, password, address, email )
-  console.log(name, password, email, address);
-  res.json(name)
+  try{
+    const user = await User.create({name, password, address, email})
+    res.json(user.email)
+  }
+  catch(e){
+    res.json(e)
+  }
 
   // try {
   //   const user = await User.findOne({ where: { name } });
@@ -37,35 +42,38 @@ router.post('/signup', async (req, res) => {
   // }
 });
 
+// router.post('/login', async (req, res)=> {
+//   console.log(req.body)
+//   res.json(req.body)
+// })
 // router.get('/signin', (req, res) => {
 //   res.render('user/signin');
 // });
 
-// router.post('/signin', async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     const user = await User.findOne({ where: { email, password } });
-//     console.log(user);
-//     if (user) {
-//       req.session.user = user.name;
-//       req.session.uid = user.id;
-//       return res.redirect(`/users/profile/${user.id}`);
-//     }
-//   } catch {
-//     return res.render('error', {
-//       message: 'Не удалось получить записи из базы данных.',
-//       error: {},
-//     });
-//   }
-//   return res.render('user/signin', { erra: 'User or password doesnot exists !!!' });
-// });
+router.post('/signin', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ where: { email, password} });
+    console.log(Boolean(user))
+    if(user){
+      req.session.user = user.name;
+      req.session.uid = user.id;
+      return res.json({userId: user.id, username: user.name})
+    } else {
+      return res.json(user)
+    }
+  } catch (err) {
+    if(err) res.json(err)
+  }
+});
 
-// router.get('/logout', (req, res) => {
-//   req.session.destroy();
-//   // res.cookie('cookie', {});
-//   res.clearCookie('cookie', { path: '/' });
-//   res.redirect('/');
-// });
+router.post('/logout',sessionChecker, (req, res) => {
+  req.session.destroy();
+  // res.cookie('cookie', {});
+  res.clearCookie('cookie');
+  res.sendStatus(200)
+});
+
 
 // router.get('/profile/:id', async (req, res) => {
 //   const { id } = req.params;
@@ -85,5 +93,10 @@ router.post('/signup', async (req, res) => {
 //   }
 //   return res.redirect(`/users/${req.session.uid}`);
 // });
+
+
+router.get('/me', sessionChecker, (req, res)=>{
+  req.session.user?res.json({userId: req.session.uid, username: req.session.user}):res.json({})
+})
 
 module.exports = router;
