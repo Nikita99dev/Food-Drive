@@ -56,6 +56,8 @@ const submitHandler = (e) => {
 //     if(data.length) info = "invalid-feedback";
 //     else info = ''
 //  }, [data])
+
+
 return (
   <form className={`row g-3 d-flex justify-content-center ${data.email||data.password !== '' ? "was-validated" : "needs-validation"}`} onSubmit={submitHandler} >
     <div className="col-md-4">

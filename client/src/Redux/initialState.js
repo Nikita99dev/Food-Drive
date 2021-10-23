@@ -1,5 +1,6 @@
 const initialState = {
-  user:{}
+  user:{},
+  map:{}
 }
 
 const finalState = () => {

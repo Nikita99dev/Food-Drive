@@ -3,7 +3,7 @@ import * as actions from "../actions/auth";
 
 export const registerUser = (newUser, history) => async (dispatch) => {
   dispatch(actions.register_user_pending());
-
+  console.log('from registerUser thunk', newUser)
   try {
     console.log("from fetch signup", newUser);
     const res = await fetch("http://localhost:3001/users/signup", {

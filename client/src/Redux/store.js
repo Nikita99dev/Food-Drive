@@ -9,6 +9,7 @@ const store = createStore(rootReducer, finalState(), composeWithDevTools(applyMi
 // console.log('000000000000000000000000000000000000000000000000000000', store);
 store.subscribe(() => {
   console.log(store.getState().user)
+  console.log(store.getState().map)
   // window.localStorage.setItem('user', JSON.stringify(store.getState().user));
 });
 

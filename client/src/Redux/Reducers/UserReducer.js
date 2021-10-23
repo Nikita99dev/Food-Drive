@@ -8,8 +8,8 @@ const preloaded = {
 }
 export default function UserReducer(state = preloaded, action){
 
-  console.log('state from reducer', state)
-  console.log('acttion', action)
+  // console.log('state from reducer', state)
+  // console.log('acttion', action)
   switch(action.type){
     case actions.REGISTER_USER_FULFILLED:
       case actions.LOGIN_USER_FULFILLED:

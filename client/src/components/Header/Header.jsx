@@ -30,7 +30,7 @@ export default function Header(){
         <div className="navbar-nav">
           <Link className="nav-link active" aria-current="page" to="/">Home</Link>
           <Link className="nav-link" to="/form">Forms</Link>
-          <Link className="nav=link" to='/main'>Main</Link>
+          <Link className="nav-link" to='/main'>Main</Link>
            {/* <Link className="nav-link" to="/login">Login</Link> */}
           {/* <Link className="nav-link" to="/signup">Sign Up</Link> */}
           <Link className="nav-link" onClick={logout}>Log out</Link>
