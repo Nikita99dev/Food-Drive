@@ -1,62 +1,70 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router";
-import initMap from "../../../Redux/thunks/mapThunk";
+import { actions } from "../../../Redux/slices/rootReducer";
+import {initMap } from "../../../Redux/thunks/mapThunk";
 import { registerUser } from "../../../Redux/thunks/usersThunks";
+import SubmitSeccus from "../../common/common";
 import CircularColor from "../../Loader/Loader";
 import Main from "../../Main/Main";
+import { DescriptionAlert, DescriptionAlert3 } from "../Alert/Alert";
 
 
-export default function SignUp() {
+export default function SignUp({user}) {
   const initstate = {
     name: '',
     password: '',
     email: '',
     address: '',
-    coordinates: []
+    coordinates: [],
     }
 
   const [newUser, setNewUser] = useState(initstate)
 
+
+  useEffect(()=>{
+    user = '';
+  },[])
+
+
   const map = useSelector((state)=> state.map)
 
-  // useEffect(()=> {
-  //   console.log('coords', coords)
-  // }, coords)
+  console.log(map)
 
 
   const onChange = (e) => {
-    setNewUser(prev => ({...prev, [e.target.name]: e.target.value }))
+    setNewUser(prev => ({...prev, [e.target.name]: e.target.value.trim() }))
   }
+
+
 
   const dispatch = useDispatch()
 
   let history = useHistory();
 
-  // const validate = () => {
-  //   fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=5af5e7e3-5a13-4cf9-a295-273c77328f6b&format=json&geocode=${newUser.address}&lang=en-US`)
-  //   .then(res=>res.json())
-  //   .then(resp=> {
-  //     const {  featureMember } = resp.response.GeoObjectCollection
-  //     const coords = [featureMember[0]?.GeoObject?.Point?.pos.split(" ").map(el=>+el)]
-  //     setNewUser(prev=>({...prev, coordinates: [coords[0][1], coords[0][0]]}))
-  //   })
-  // }
 
+  useEffect(()=>{
+    console.log('7777777777777777777', Boolean(user?.user?.id))
+  if(user?.user?.id ){
+    dispatch(actions.recordMapPending({newUser,user, history}))
+  } 
+  },[user])
+  
   const submitHandler = (e) => {
     e.preventDefault()
-    // let user = Object.entries(newUser).filter((el)=>el[1] ? el[1].trim(): el[1])
-    // user = Object.fromEntries(user)
-    // console.log('usersignup', user)
-    //setNewUser(prev=>({...prev, [coordinates[0], coordinates[1]] = [coordinates[1],coordinates[0]]}))
-    dispatch(registerUser(newUser, history))
+    dispatch(actions.registerUserPending({newUser, history}))
   }
 
   const sub = (e) => {
     e.preventDefault()
-
     dispatch(initMap(newUser))
   }
+
+  useEffect(()=> {
+    setNewUser(prev=> ({...prev, coordinates: map.coords}))
+  },[map])
+
+
 
 return (
   <form className={`row m-4  ${newUser.name || newUser.password || newUser.address || newUser.email !== '' ? "was-validated" : "needs-validation"}`} onSubmit={submitHandler}>
@@ -80,6 +88,9 @@ return (
       <div className={newUser?.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)?"valid-feedback":"invalid-feedback"}>
         {newUser?.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)?"Looks Good!":"Type-something"}
     </div>
+    <div>
+      {user?.error && user.error !== 'invalid' ?<DescriptionAlert3 />:''}
+    </div>
     </div>
     <div className="col-md-10 align-items-center d-flex flex-row justify-content-center justify-content-xl-around">
       {/* <label htmlFor="validationCustom03" className="form-label">Address</label> */}
@@ -91,7 +102,7 @@ return (
     {/* {map.loader?<CircularColor/>:<Main points={map.coords}/>} */}
     {/* {map.coords?<Main points={map.coords}/>: null} */}
     </div>
-    {map.loader?<CircularColor/>:<Main points={map.coords}/>}
+    {map.loader ?<CircularColor/>: map.coords?<Main points={map.coords}/>:null}
     <div className="col-12">
       <div className="form-check m-3">
         <input className="form-check-input" type="checkbox" id="invalidCheck" required />
@@ -104,9 +115,10 @@ return (
       </div>
     </div>
     <div className="col-12 d-flex justify-content-center">
-      <button className="btn btn-primary" type="submit">Submit form</button>
+      <button className="btn btn-primary" type="submit" >Submit form</button>
     </div>
   </form>
 )
 }
-//5af5e7e3-5a13-4cf9-a295-273c77328f6b
+
+// ${!newUser.coordinates.length?'disabled':""}`}

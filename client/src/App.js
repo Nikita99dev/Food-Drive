@@ -13,16 +13,20 @@ import Forms from './components/Forms/Forms';
 import PrivateRoute from './components/Auth/PrivateRoute/PrivateRoute';
 import LoginForm from './components/Auth/loginForms/LoginForm';
 import SignUp from './components/Auth/signUpForms/SignUpForm';
-import { useDispatch } from 'react-redux';
-import { initialUser } from './Redux/thunks/usersThunks';
+import { useDispatch, useSelector } from 'react-redux';
+import { actions } from '../src/Redux/slices/rootReducer'
+import SubmitSeccus from './components/common/common';
+import Warning from './components/common/warning';
 
 function App() {
 
   const dispatch = useDispatch();
+  
   useEffect(()=>{
-    dispatch(initialUser())
+    dispatch(actions.loginInitialPending())
   },[])
 
+  const user = useSelector(state=>state.user)
 
   return (
     <div className="m-2">
@@ -36,10 +40,16 @@ function App() {
             <LoginForm />
           </Route>
           <Route path="/signup">
-            <SignUp />
+            <SignUp user={user} />
           </Route>
           <Route path="/main">
             <Main />
+          </Route>
+          <Route path="/warning">
+            <Warning />
+          </Route>
+          <Route path="/succes">
+            <SubmitSeccus />
           </Route>
           <Route path="/">
             <Welcome />

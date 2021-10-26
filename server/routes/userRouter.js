@@ -17,8 +17,15 @@ router.post('/signup', async (req, res) => {
   console.log('BACK', req.body);
   const { name, password, address, email } = req.body;
   try{
-    const user = await User.create({name, password, address, email})
-    res.json(user.email)
+    const curUser = await User.findOne({where: {email}})
+    console.log(curUser)
+    if(curUser){
+      return res.status(500).json({'ok': false})
+    } else {
+      const user = await User.create({name, password, email})
+      console.log('user idddddddddddddddddddddddddddddddddddddddddddddddddddddd', user.id)
+      res.json(user.id)
+    }
   }
   catch(e){
     res.json(e)
@@ -52,9 +59,11 @@ router.post('/signup', async (req, res) => {
 
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.body)
+  console.log({ email, password })
   try {
     const user = await User.findOne({ where: { email, password} });
-    console.log(Boolean(user))
+    console.log(user)
     if(user){
       req.session.user = user.name;
       req.session.uid = user.id;
@@ -95,8 +104,8 @@ router.post('/logout',sessionChecker, (req, res) => {
 // });
 
 
-router.get('/me', sessionChecker, (req, res)=>{
-  req.session.user?res.json({userId: req.session.uid, username: req.session.user}):res.json({})
+router.get('/me', (req, res)=>{
+  req.session.user?res.json({userId: req.session.uid, username: req.session.user}):res.json(null)
 })
 
 module.exports = router;

@@ -3,7 +3,7 @@ import {
   Link
 } from "react-router-dom";
 import { useHistory } from "react-router";
-import { logoutUser } from "../../Redux/thunks/usersThunks";
+import { actions } from "../../Redux/slices/rootReducer";
 
 
 export default function Header(){
@@ -14,13 +14,13 @@ export default function Header(){
 
   const logout = (e) => {
     e.preventDefault()
-    dispatch(logoutUser(history))
+    dispatch(actions.logoutUserPending(history))
   }
  
   if(user?.username){
   return (
     <div>
-    <nav className="navbar navbar-light navbar-expand-lg mg-5" style={{backgroundColor: "#e3f2fd"}}>
+    <nav className="navbar navbar-dark bg-primary navbar-expand-lg mg-5" style={{backgroundColor: "#e3f2fd"}}>
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">Navbar</Link>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@ export default function Header(){
 } else {
   return (
     <div>
-    <nav className="navbar navbar-light navbar-expand-lg mg-5" style={{backgroundColor: "#e3f2fd"}}>
+    <nav className="navbar navbar-dark bg-primary navbar-expand-lg mg-5" style={{backgroundColor: "#e3f2fd"}}>
     <div className="container-fluid">
       <Link className="navbar-brand" to="/">Navbar</Link>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

@@ -9,16 +9,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       address: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
+        allowNull: false,
       },
       latitude: {
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL,
+        allowNull: false,
       },
       longitude: {
-        type: Sequelize.STRING
+        type: Sequelize.DECIMAL,
+        allowNull: false,
       },
       isApproved: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
       },
       userId: {
         type: Sequelize.INTEGER,

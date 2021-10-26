@@ -23,3 +23,14 @@ export function DescriptionAlert2() {
     </Stack>
   );
 }
+
+export function DescriptionAlert3() {
+  return (
+    <Stack sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}  spacing={2}>
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        Email Already Exists — <strong>check it out!</strong>
+      </Alert>
+    </Stack>
+  );
+}
