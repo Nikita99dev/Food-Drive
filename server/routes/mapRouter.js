@@ -14,7 +14,7 @@ console.log(address, latitude, longitude, userId)
   try {
     const mapDb = await Marker.create({address, latitude, longitude, userId})
     console.log('mapid',mapDb?.userId)
-    res.json(mapDb?.userId)
+    res.json(mapDb)
   } catch (error) {
     res.json(error)
   }

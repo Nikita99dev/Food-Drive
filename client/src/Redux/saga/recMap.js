@@ -22,14 +22,16 @@ import { findData, recordMap, uId  } from "./tools";
     // console.log('qqqqqqqqqqqqqqqqqq', typeof(obj.latitude) === 'number' && typeof(payload?.user?.user?.id) === 'number')
     if(typeof(obj.latitude) === 'number'  && typeof(payload?.user?.user?.id) === 'number'){
        map = yield call(recordMap, 'http://localhost:3001/map/insertion', obj  )
-      //  console.log('====================================', map, typeof(payload.user.user.id) === Number)
+       console.log('====================================', map, typeof(payload.user.user.id) === 'number')
     } else {
       payload.history.replace('/warning')
     }
     // const map = yield call(recordMap, 'http://localhost:3001/map/insertion', obj  )
-    // console.log('====================================', map, payload.user)
+    console.log('====================================', map, payload.user)
     if(map?.id){
+      console.log('mappppppppppppppppp',map)
       const res = yield put(actions.recordMapFulfilled(map))
+      console.log(res)
       if(res.payload.id){
       payload.history.replace('/succes')
       } else {
