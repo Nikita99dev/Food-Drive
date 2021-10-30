@@ -143,6 +143,25 @@ export async function findData(url){
     throw error
   }
 }
+
+
+export async function findOneMap(url, userId){
+  try {
+    const map = await fetch(url,{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({userId})
+    })
+
+    const mapRes = await map.json();
+    return mapRes
+  } catch (error) {
+    throw error
+  }
+}
 // export const initialUser = () => async(dispatch) => {
 //   dispatch(actions.loginUserPending());
 

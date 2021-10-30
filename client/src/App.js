@@ -9,7 +9,7 @@ import LoginForm from "./components/Auth/loginForms/LoginForm";
 import SignUp from "./components/Auth/signUpForms/SignUpForm";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../src/Redux/slices/rootReducer";
-import SubmitSeccus from "./components/common/common";
+import SubmitSeccus from "./components/common/succes";
 import Warning from "./components/common/warning";
 import Profile from "./components/profile/profile";
 

@@ -26,7 +26,7 @@ router.post('/idCheck', async (req,res)=>{
   console.log('1111111', req.body)
   console.log('1111111', email)
   try {
-    const user = await findOne({where:  {email: email}})
+    const user = await Marker.findOne({where:  {email: email}})
     console.log(']]]]]]]]]]]]]]]]', email)
     if(user.id){
       res.json(user.id)
@@ -36,4 +36,20 @@ router.post('/idCheck', async (req,res)=>{
   }
 })
 
+
+router.post('/getOne', async (req, res ) => {
+  // console.log(req.body)
+  try {
+    const { userId }  = req.body;
+    const map = await Marker.findOne({where: { userId}})
+    console.log(map)
+    if(map?.userId){
+      res.json(map)
+    } else {
+      res.status(500).json({e:'not found'})
+    }
+  } catch (error) {
+    res.json(error)
+  }
+})
 module.exports = router

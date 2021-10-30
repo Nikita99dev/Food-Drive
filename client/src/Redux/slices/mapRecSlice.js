@@ -22,6 +22,30 @@ const MapSlice = createSlice({
     recordMapRejected: (state, action) => {
       state.loader = false;
       state.error = action.payload;
+    },
+    getMapPending: (state, action) => {
+      state.loader = true;
+    },
+    getMapFulfilled: (state, action) => {
+      state.loader = false;
+      state.error = null;
+      state.map = action.payload;
+    },
+    getMapRejected: (state, action) => {
+      state.error = action.payload;
+      state.loader = false;
+    },
+    getAllMapsPending: (state, action) => {
+      state.loader = true;
+    }, 
+    getAppMapsFulfilled: (state, action) => {
+      state.loader = false;
+      state.map = action.payload;
+      state.error = null;
+    },
+    getAllMapsRejected: (state, action) => {
+      state.loader = false;
+      state.error = action.payload;
     }
   }
 })

@@ -57,22 +57,28 @@ const submitHandler = (e) => {
 //     if(data.length) info = "invalid-feedback";
 //     else info = ''
 //  }, [data])
+const validator = () => data.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/) ? 'is-valid': data.email !== ''?'is-invalid':''
+const validator2 = () => data.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/) ? "valid-feedback" : data.email !== ''? "invalid-feedback": ""
+const validator3 = () => data.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/) ? "Looks Good!" : data.email !== ''? "Email isn't correct": ""
 
+const validator4 = () => data?.password.length > 6 ? 'is-valid': data?.password ?'is-invalid': ''
+const validator5 = () => data?.password.length > 6 ? 'valid-feedback': data?.password ?'invalid-feedback': ''
+const validator6 = () => data?.password.length > 6 ? 'Looks Good!': data?.password ?'Password should be 6 characters long': ''
 
 return (
-  <form className={`row m-3 d-flex justify-content-center ${data.email||data.password !== '' ? "was-validated" : "needs-validation"}`} onSubmit={submitHandler} >
+  <form className="row m-3 d-flex justify-content-center" onSubmit={submitHandler} >
     <div className="col-md-4">
       <label htmlFor="validationCustom02" className="form-label">Email</label>
-      <input type="text" className="form-control" onChange={onChange} name="email" value={data.email} placeholder="Email" id="validationCustom02" required />
-      <div className={data.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/) ? "valid-feedback" : "invalid-feedback"}>
-        {data.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/) ? "Looks Good!" : "Type-something"}
+      <input type="text" className={`form-control ${validator()}`} onChange={onChange} name="email" value={data.email} placeholder="Email" id="validationCustom02" required />
+      <div className={validator2()}>
+        {validator3()}
       </div>
     </div>
     <div className="col-md-4">
       <label htmlFor="validationCustom01" className="form-label">Password</label>
-      <input type="text" className="form-control" onChange={onChange} name="password" value={data.password} placeholder="password" id="validationCustom01" required />
-      <div className={data?.password !== 'undefined' ? "valid-feedback" : "invalid-feedback"}>
-        {data?.password !== 'undefined' ? "Looks Good!" : "Type-something"}
+      <input type="text" className={`form-control ${validator4()}`} onChange={onChange} name="password" value={data.password} placeholder="password" id="validationCustom01" required />
+      <div className={validator5()}>
+        {validator6()}
       </div>
     </div>
     <div className="col-12 d-flex justify-content-center">
@@ -85,5 +91,3 @@ return (
 
 )
 }
-
-

@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import { useHistory } from "react-router";
 import { actions } from "../../Redux/slices/rootReducer";
+import { UserOutlined, LoginOutlined, UserAddOutlined, GlobalOutlined, HomeOutlined, LogoutOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 
 
 export default function Header(){
@@ -22,18 +23,18 @@ export default function Header(){
     <div>
     <nav className="navbar navbar-dark bg-primary navbar-expand-lg mg-5" style={{backgroundColor: "#e3f2fd"}}>
     <div className="container-fluid">
-      <Link className="navbar-brand" to="/">Navbar</Link>
+      <Link className="navbar-brand" to="/"><ShoppingCartOutlined lined style={{ fontSize: '35px'}} /></Link>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-          <Link className="nav-link" to="/lk">Profile</Link>
-          <Link className="nav-link" to='/main'>Main</Link>
+          {/* <Link className="nav-link active" aria-current="page" to="/"><HomeOutlined style={{ fontSize: '25px'}} /></Link> */}
+          <Link className="nav-link" to="/lk"><UserOutlined style={{ fontSize: '25px'}} /></Link>
+          <Link className="nav-link" to='/main'><GlobalOutlined style={{ fontSize: '25px'}} /></Link>
            {/* <Link className="nav-link" to="/login">Login</Link> */}
           {/* <Link className="nav-link" to="/signup">Sign Up</Link> */}
-          <Link className="nav-link" onClick={logout}>Log out</Link>
+          <Link className="nav-link" onClick={logout}><LogoutOutlined  style={{ fontSize: '25px'}} /></Link>
         </div>
       </div>
 
@@ -46,16 +47,16 @@ export default function Header(){
     <div>
     <nav className="navbar navbar-dark bg-primary navbar-expand-lg mg-5" style={{backgroundColor: "#e3f2fd"}}>
     <div className="container-fluid">
-      <Link className="navbar-brand" to="/">Navbar</Link>
+      <Link className="navbar-brand" to="/"><ShoppingCartOutlined style={{ fontSize: '35px'}} /></Link>
       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div className="navbar-nav">
-          <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-          <Link className="nav-link" to='/main'>Main</Link>
-          <Link className="nav-link" to="/login">Login</Link>
-          <Link className="nav-link" to="/signup">Sign Up</Link>
+          {/* <Link className="nav-link active" aria-current="page" to="/">Home</Link> */}
+          <Link className="nav-link" to='/main'><GlobalOutlined style={{ fontSize: '25px'}} /></Link>
+          <Link className="nav-link" to="/login"><LoginOutlined style={{ fontSize: '25px'}}/></Link>
+          <Link className="nav-link" to="/signup"><UserAddOutlined style={{ fontSize: '25px'}} /></Link>
         </div>
       </div>
 
