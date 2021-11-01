@@ -1,8 +1,12 @@
 import 'antd/dist/antd.css';
 import { Descriptions } from 'antd';
-import { useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Redux/slices/rootReducer';
+import CircularColor from '../Loader/Loader';
+import Main from '../Main/Main';
+import { Container } from './styled';
+import { success } from '../common/succesSmall';
 
 
 export default function Profile () {
@@ -21,16 +25,24 @@ export default function Profile () {
 
 
   
+  useEffect(()=>{
+    if(recMap.loader === true && recMap.map.latitude) success({info: "Done Seccusfully"})
+  },[recMap.loader])
+
   return (
-    <Descriptions title="User Info">
+    <>
+    <Descriptions title="User Information">
     <Descriptions.Item label="UserName">{user?.user?.username}</Descriptions.Item>
-    <Descriptions.Item label="Telephone">{}</Descriptions.Item>
     <Descriptions.Item label="Live">{recMap.map.address}</Descriptions.Item>
     <Descriptions.Item label="Status">{recMap.map.isApproved?"Approved":"Under review"}</Descriptions.Item>
     <Descriptions.Item label="Coordinates">
     {[recMap.map.latitude, ' : ',recMap.map.longitude] }
     </Descriptions.Item>
   </Descriptions>
+  <Container >
+    {recMap.loader ?<CircularColor/>: recMap.map.longitude?<Main points={[+recMap.map.longitude, +recMap.map.latitude]}/>:""}
+    </Container>
+  </>
   )
 }
 

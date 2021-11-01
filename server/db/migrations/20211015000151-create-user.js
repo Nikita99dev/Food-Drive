@@ -25,6 +25,11 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      money: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        default: 0,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

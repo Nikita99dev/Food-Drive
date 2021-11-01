@@ -63,7 +63,7 @@ export async function logUser(url, user){
   }
 };
 
-export async function userLogout(url, history) {
+export async function userLogout(url) {
   try {
     const res = await fetch(url,{
       method: "POST",
@@ -74,7 +74,9 @@ export async function userLogout(url, history) {
     })
     
     if(res.status === 200){
-      return history;
+      return true;
+    } else {
+      return false 
     }
   } catch (e) {
     throw e 

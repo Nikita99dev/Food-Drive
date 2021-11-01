@@ -7,30 +7,20 @@ import CircularColor from "../../Loader/Loader";
 import Main from "../../Main/Main";
 import {  DescriptionAlert3 } from "../Alert/Alert";
 import { Switch} from 'antd';
+import RowRadioButtonsGroup from "./extra/amount";
 
 
 
-export default function SignUp({user, c, f}) {
-  const initstate = {
-    name: '',
-    password: '',
-    email: '',
-    role: '',
-    address: '',
-    money: 0,
-    coordinates: [],
-    }
-
-  const [newUser, setNewUser] = useState(initstate)
-
-  useEffect(()=>{
-    user = '';
-  },[])
-
+export default function SignUpTest({user,setNewUser, newUser, f }) {
+  console.log(newUser)
+ 
 
   const map = useSelector((state)=> state.map)
   // const user = useSelector((state)=> state.user)
 
+  const onClick = () => {
+    f(2)
+  }
 
   const onChange = (e) => {
     setNewUser(prev => ({...prev, [e.target.name]: e.target.value }))
@@ -74,7 +64,14 @@ export default function SignUp({user, c, f}) {
   const validator9 = () => newUser.name.match(/^[A-Za-z]{3,20}$/gi) ? 'Looks Good!': newUser.name !== ''?'Name has to contain only characters':''
 
 return (
-  <form className="row m-4 " onSubmit={submitHandler}>
+  <>
+  <div style={{'margin': '5px'}}>
+  <h1>Enter You Information</h1>
+  </div>
+  <form className="row m-4 " >
+  {/* onSubmit={submitHandler} */}
+    <div>
+    </div>
     <div className="col-md-4">
       <label htmlFor="validationCustom01" className="form-label">Name</label>
       <input type="text" className={`form-control ${validator7()}`} name="name" onChange={onChange} value={newUser.name} id="validationCustom01" required />
@@ -99,14 +96,19 @@ return (
       {user?.error && user.error !== 'invalid' ?<DescriptionAlert3 />:''}
     </div>
     </div>
+    {newUser.role === 'reciver'?
+    <div>
     <div className="col-md-10 align-items-center d-flex flex-row justify-content-center justify-content-xl-around">
-      <input type="text" className="form-control " onChange={onChange} placeholder="Address followed by city" name="address"  value={newUser.address} id="validationCustom03" required />
+      <input type="text" className="form-control " onChange={onChange} placeholder="Address followed by the city" name="address"  value={newUser.address} id="validationCustom03" required />
       <div className={newUser?.address !==''?"valid-feedback":"invalid-feedback"}>
         {newUser?.address !==''?"Looks Good!":"Type-something"}
     </div>
     <button className="btn btn-primary m-5" onClick={sub} type="button">Check Address</button>
     </div>
     {map.loader ?<CircularColor/>: Array.isArray(map.coords)?<Main points={map.coords}/>:""}
+    </div>
+    :""
+}
     <div className="col-12">
       <div className="form-check m-3">
         <input className="form-check-input" type="checkbox" id="invalidCheck" required />
@@ -119,8 +121,9 @@ return (
       </div>
     </div>
     <div className="col-12 d-flex justify-content-center">
-      <button className="btn btn-primary" type="submit">Submit form</button>
+      <button className="btn btn-primary" onClick={onClick} type="button">Submit form</button>
     </div>
   </form>
+  </>
 )
 }

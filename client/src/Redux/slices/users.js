@@ -39,6 +39,8 @@ const userSlice = createSlice({
     },
     logoutUserFulfilled: (state, action) => {
       state.user = {};
+      state.map = {};
+      state.recMap = {};
       state.loader = false;
       state.error = null;
     },

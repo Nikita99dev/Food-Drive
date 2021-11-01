@@ -15,7 +15,7 @@ export default function Header(){
 
   const logout = (e) => {
     e.preventDefault()
-    dispatch(actions.logoutUserPending(history))
+    dispatch(actions.logoutUserPending({history}))
   }
  
   if(user?.username){

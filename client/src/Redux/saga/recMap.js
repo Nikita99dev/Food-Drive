@@ -9,7 +9,7 @@ function* recMap({payload }){
   try {
     // const id = yield call(uId, 'http://localhost:3001/map/idCheck', payload.user.user.email)
     // console.log('iddddddddddddddddddddddddddddddddddddddd', id)
-    const records = yield call(findData, `https://geocode-maps.yandex.ru/1.x/?apikey=5af5e7e3-5a13-4cf9-a295-273c77328f6b&format=json&geocode=${final}&lang=en-US` )
+    const records = yield call(findData, `https://geocode-maps.yandex.ru/1.x/?apikey=${process.env.YANDEX_API}&format=json&geocode=${final}&lang=en-US` )
     const obj = {}
     // console.log(records.response.GeoObjectCollection.featureMember[0].GeoObject?.Point?.pos.split(" "))
     obj.address = records?.response?.GeoObjectCollection?.featureMember[0]?.GeoObject?.metaDataProperty?.GeocoderMetaData?.Address.formatted

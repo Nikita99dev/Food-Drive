@@ -27,10 +27,10 @@ function* loginUser( {payload} ) {
     const DbUser = yield call(logUser, 'http://localhost:3001/users/signin', payload.data, payload.history )
     if(DbUser){
       yield put(actions.loginUserFulfilled(DbUser))
-      payload.history.replace('/main')
+      payload.history.replace('/lk')
     }else  {
       yield put(actions.loginUserRejected('invalid'))
-      payload.history.replace('/login')
+      payload.history.replace('/warning')
     }
     
  } catch(e){
@@ -39,10 +39,17 @@ function* loginUser( {payload} ) {
  } 
 }
 
-function* logoutUser() {
+function* logoutUser(payload) {
+  console.log('payload', payload.payload.history)
   try{
-    yield call(userLogout, "http://localhost:3001/users/logout")
-    yield put(actions.logoutUserFulfilled())
+    const res = yield call(userLogout, "http://localhost:3001/users/logout")
+    if(res){
+      yield put(actions.logoutUserFulfilled())
+      payload.payload.history.push('/login')
+    } else {
+      yield put(actions.logoutUserRejected(res))
+      payload.replace('/login')
+    }
   } catch (e) {
     yield put(actions.logoutUserRejected(e))
   }
