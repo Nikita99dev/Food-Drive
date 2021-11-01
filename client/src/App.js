@@ -63,7 +63,7 @@ function App() {
           <Route path="/succes">
             <SubmitSeccus />
           </Route>
-          <Route path="/custom/">
+          <Route path="/custom">
             <MainSignUp history={history} />
           </Route>
           <Route path="/">

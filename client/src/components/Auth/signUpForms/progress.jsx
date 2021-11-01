@@ -1,26 +1,27 @@
 import { Steps } from 'antd';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Link,  Redirect } from 'react-router-dom';
 // import { Container } from '../../profile/styled';
 
 const { Step } = Steps;
 
 
-export const ProgressBar = ({f, c, newUser}) => {
+export const ProgressBar = ({f, c, newUser }) => {
 
   useEffect(()=>{
     console.log(c)
   },[c])
   
-  let status;
+  const [status, setStatus] = useState()
+
   useEffect(()=>{
-      if(newUser.role !== ''){ 
-        status = 'finish'
+      if(newUser.role === 'donor' || newUser.role === 'reciver'){ 
+        setStatus('finish')
       }else{
-        status = 'wait'
+        setStatus('wait')
       }
-    console.log('status', status)
-  }, [newUser])
+  }, [newUser.role])
+
 
 let status2;
 useEffect(()=>{
@@ -52,8 +53,8 @@ return (
               >
                 
                   <Step status={status}  title="Role" />
-                  <Step status={status2}title="Info" />
-                  <Step status="finish" title="Submit" disabled />
+                  <Step status={status2} title="Info" />
+                  <Step status="wait" title="Submit" disabled />
               </Steps>
         </div>
   );

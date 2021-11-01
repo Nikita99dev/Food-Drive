@@ -31,7 +31,6 @@ export default function MainSignUp({user}) {
 
   const [state, setState] = useState(0)
 
-
   
   const Change = (e) => {
     setState(prev=>prev = e)
@@ -49,7 +48,7 @@ return (
   <ProgressBar f={Change} c={state} newUser={newUser}/> 
   {state === 0 && <FirstStep f={setState} setNewUser={setNewUser} c={state} h={history} />}
   {state === 1 && <SignUpTest f={Change} setNewUser={setNewUser} newUser={newUser} user={user} />}
-  {state === 2 && <Final f={Change} setNewUser={setNewUser} newUser={newUser} user={user} />}
+  {state === 2 && <Final f={Change} setNewUser={setNewUser} newUser={newUser} user={user}/>}
   </div>
 );
 }
