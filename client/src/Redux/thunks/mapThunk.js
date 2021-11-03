@@ -1,5 +1,4 @@
 import { map_init_fulfilled, map_init_pending, map_init_rejected } from "../actions/map";
-import { actions } from "../slices/rootReducer";
 
 export const initMap = (payload) => async (dispatch) => {
     dispatch(map_init_pending())

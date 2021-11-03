@@ -1,6 +1,6 @@
 import { Steps } from 'antd';
 import { useEffect, useState } from 'react';
-import { Link,  Redirect } from 'react-router-dom';
+// import { Link,  Redirect } from 'react-router-dom';
 // import { Container } from '../../profile/styled';
 
 const { Step } = Steps;

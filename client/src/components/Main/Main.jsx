@@ -8,18 +8,18 @@ const mapState = {
   behaviors: ["default", "scrollZoom"]
 };
 
-const getPointData = index => {
-  return {
-    balloonContentBody: "placemark <strong>balloon " + index + "</strong>",
-    clusterCaption: "placemark <strong>" + index + "</strong>"
-  };
-};
+// const getPointData = index => {
+//   return {
+//     balloonContentBody: "placemark <strong>balloon " + index + "</strong>",
+//     clusterCaption: "placemark <strong>" + index + "</strong>"
+//   };
+// };
 
-const getPointOptions = () => {
-  return {
-    preset: "islands#violetIcon"
-  };
-};
+// const getPointOptions = () => {
+//   return {
+//     preset: "islands#violetIcon"
+//   };
+// };
 
 
 export default function Main({points}){

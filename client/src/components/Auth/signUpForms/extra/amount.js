@@ -3,16 +3,16 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 
 export default function RowRadioButtonsGroup() {
 
-  const [other, setOther] = useState()
+  // const [other, setOther] = useState()
 
-  const isChecked = (e) => {
-    setOther(prev=>prev=e.target.value)
-  }
+  // const isChecked = (e) => {
+  //   setOther(prev=>prev=e.target.value)
+  // }
 
   return (
     <div style={{'margin': '10px'}}>

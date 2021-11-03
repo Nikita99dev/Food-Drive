@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
-import * as types from "../types/user";
+
 
 export const LOGIN_USER_PENDING = "LOGIN_USER_PENDING";
 export const LOGIN_USER_FULFILLED = "LOGIN_USER_FULFILLED";

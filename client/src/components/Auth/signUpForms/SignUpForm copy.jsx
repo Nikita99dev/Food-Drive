@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router";
 import { actions } from "../../../Redux/slices/rootReducer";
@@ -6,13 +6,13 @@ import {initMap } from "../../../Redux/thunks/mapThunk";
 import CircularColor from "../../Loader/Loader";
 import Main from "../../Main/Main";
 import {  DescriptionAlert3 } from "../Alert/Alert";
-import { Switch} from 'antd';
-import RowRadioButtonsGroup from "./extra/amount";
+// import { Switch} from 'antd';
+// import RowRadioButtonsGroup from "./extra/amount";
 
 
 
 export default function SignUpTest({user,setNewUser, newUser, f }) {
-  console.log(newUser)
+  console.log('-------------', newUser, user)
  
 
   const map = useSelector((state)=> state.map)
@@ -28,19 +28,19 @@ export default function SignUpTest({user,setNewUser, newUser, f }) {
 
   const dispatch = useDispatch()
 
-  let history = useHistory();
+  // let history = useHistory();
 
 
-  useEffect(()=>{
-  if(user?.user?.id ){
-    dispatch(actions.recordMapPending({newUser,user, history}))
-  } 
-  },[user])
+  // useEffect(()=>{
+  // if(user?.user?.id ){
+  //   dispatch(actions.recordMapPending({newUser,user, history}))
+  // } 
+  // },[user, dispatch])
   
-  const submitHandler = (e) => {
-    e.preventDefault()
-    dispatch(actions.registerUserPending({newUser, history}))
-  }
+  // const submitHandler = (e) => {
+  //   e.preventDefault()
+  //   dispatch(actions.registerUserPending({newUser, history}))
+  // }
 
   const sub = (e) => {
     e.preventDefault()
@@ -121,7 +121,7 @@ return (
       </div>
     </div>
     <div className="col-12 d-flex justify-content-center">
-      <button className="btn btn-primary" onClick={onClick} type="button">Submit form</button>
+      <button className="btn btn-primary" onClick={onClick} type="button">Next Step</button>
     </div>
   </form>
   </>

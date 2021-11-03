@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link, useHistory} from "react-router-dom";
-import { Container } from "../../profile/styled";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router";
+// import { useDispatch } from "react-redux";
+// import { actions } from "../../../Redux/slices/rootReducer";
 import Final from "./finalStep";
 import FirstStep from "./firstStep";
-import { Func } from "./new";
+// import { Func } from "./new";
 import { ProgressBar } from "./progress";
-import SignUp from "./SignUpForm";
+// import SignUp from "./SignUpForm";
 import SignUpTest from "./SignUpForm copy";
 
 
-export default function MainSignUp({user}) {
+
+export default function MainSignUp() {
   const initstate = {
     name: '',
     password: '',
@@ -20,17 +23,19 @@ export default function MainSignUp({user}) {
     coordinates: [],
     }
 
-    useEffect(()=>{
-      user = '';
-    },[])
   
   const [newUser, setNewUser] = useState(initstate)
   
-  const history = useHistory()
+  // console.log('user from thr sign up main', user)
+  const history = useHistory() 
+  // useEffect(()=>{
+  //   user = '';
+  // },[])
 
-
+  const user = useSelector(state=>state.user)
+  console.log('user from thr sign up main', user)
   const [state, setState] = useState(0)
-
+ 
   
   const Change = (e) => {
     setState(prev=>prev = e)
@@ -38,6 +43,10 @@ export default function MainSignUp({user}) {
     // history.replace(`/custom/${e}`)
   }
 
+  // const submitHandler = (e) => {
+  //   e.preventDefault()
+  //   dispatch(actions.registerUserPending({newUser, history}))
+  // }
   // useEffect(()=>{
   //   console.log(state)
   //   history.push(`/custom/${state}`)
@@ -46,9 +55,9 @@ export default function MainSignUp({user}) {
 return (
   <div style={{'margin': '5px'}} >
   <ProgressBar f={Change} c={state} newUser={newUser}/> 
-  {state === 0 && <FirstStep f={setState} setNewUser={setNewUser} c={state} h={history} />}
+  {state === 0 && <FirstStep f={setState} setNewUser={setNewUser} c={state}/>}
   {state === 1 && <SignUpTest f={Change} setNewUser={setNewUser} newUser={newUser} user={user} />}
-  {state === 2 && <Final f={Change} setNewUser={setNewUser} newUser={newUser} user={user}/>}
+  {state === 2 && <Final f={Change} setNewUser={setNewUser} history={history} newUser={newUser} user={user}/>}
   </div>
 );
 }

@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 import { Descriptions } from 'antd';
-import { useCallback, useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Redux/slices/rootReducer';
 import CircularColor from '../Loader/Loader';

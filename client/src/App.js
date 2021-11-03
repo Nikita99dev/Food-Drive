@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route, Link, useHistory } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import Welcome from "./components/Welcome/Welcome";
@@ -20,7 +20,8 @@ function App() {
 
   useEffect(() => {
     dispatch(actions.loginInitialPending());
-  }, []);
+  }, [dispatch]);
+
 
   const user = useSelector((state) => state.user);
 

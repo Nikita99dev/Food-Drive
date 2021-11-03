@@ -15,14 +15,14 @@ router.get('/signup', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   console.log('BACK', req.body);
-  const { name, password, address, email } = req.body;
+  const { name, password, role, email } = req.body;
   try{
     const curUser = await User.findOne({where: {email}})
     console.log(curUser)
     if(curUser){
       return res.status(500).json({'ok': false})
     } else {
-      const user = await User.create({name, password, email})
+      const user = await User.create({name,role , password, email})
       console.log('user idddddddddddddddddddddddddddddddddddddddddddddddddddddd', user.id)
       res.json(user.id)
     }

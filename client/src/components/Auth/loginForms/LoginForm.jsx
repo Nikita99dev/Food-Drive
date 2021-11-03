@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router"
-import { logUP } from "../../../Redux/actions/auth"
+// import { logUP } from "../../../Redux/actions/auth"
 import { actions } from "../../../Redux/slices/rootReducer"
-import { loginUser } from "../../../Redux/thunks/usersThunks"
 import CircularColor from "../../Loader/Loader"
 import { DescriptionAlert, DescriptionAlert2 } from "../Alert/Alert"
 

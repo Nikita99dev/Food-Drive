@@ -7,20 +7,29 @@ export default function Final({newUser, user, history}){
 
   const dispatch = useDispatch()
 
-  const user1 = useSelector(state=>state.user)
-
   useEffect(()=>{
-    console.log('qqqqqqqqqqqqqqqqqqqqqq', user1)
-    if(user1?.user?.id ){
-      dispatch(actions.recordMapPending({newUser,user, history}))
-    } 
-    },[user1])
+    user = '';
+  },[])
+  // const user1 = useSelector(state=>state.user)
+
+  // useEffect(()=>{
+  //   console.log('qqqqqqqqqqqqqqqqqqqqqq', user1)
+  //   if(user1?.user?.id ){
+  //     dispatch(actions.recordMapPending({newUser,user, history}))
+  //   } 
+  //   },[user1])
     
     const submitHandler = (e) => {
       e.preventDefault()
       dispatch(actions.registerUserPending({newUser, history}))
     }
 
+    useEffect(()=>{
+      if(user?.user?.id ){
+        dispatch(actions.recordMapPending({newUser, user, history}))
+      } 
+      },[user])
+      
   return (
     <div>
     {newUser.role === 'donor'?
