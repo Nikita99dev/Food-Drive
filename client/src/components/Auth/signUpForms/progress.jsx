@@ -12,34 +12,42 @@ export const ProgressBar = ({f, c, newUser }) => {
     console.log(c)
   },[c])
   
-  const [status, setStatus] = useState()
+  const [status, setStatus] = useState('wait')
+  const [status2, setStatus2] = useState('wait')
+  const [status3, setStatus3] = useState('wait')
 
   useEffect(()=>{
       if(newUser.role === 'donor' || newUser.role === 'reciver'){ 
         setStatus('finish')
-      }else{
+      }else if (newUser.role === "" && c > 0){
+        setStatus('error')
+      } else {
         setStatus('wait')
       }
-  }, [newUser.role])
+  }, [newUser])
 
 
-let status2;
+
+
 useEffect(()=>{
   if(newUser.role ==='donor'){
-    if(newUser.name !== ''  && newUser.password !== ''  && newUser.email !== ''  && newUser.money ){ 
-      status2 = 'finish' 
-    }else{
-      status2 = 'wait'
+    if(newUser.name !== ''  && newUser.password !== ''  && newUser.email !== ""){ 
+      setStatus2('finish' )
+    }else if ((newUser.name === '' || newUser.password === '' || newUser.email === '') && c > 1) {
+      setStatus2('error')
+    } else {
+      setStatus2('wait')
     }
   }else {
     if(newUser.name  !== '' && newUser.password !== '' && newUser.email !== '' && newUser.coordinates.length ){ 
-      status2 = 'finish' 
-    }else{
-      status2 = 'wait'
+      setStatus2('finish' )
+    }else if ((newUser.name === ''  || newUser.password === ''  || newUser.email === "" || !Boolean(newUser.coordinates.length)) && c > 1){
+      setStatus2('error')
+    }else {
+      setStatus2('wait')
     }
   }
-
-}, [newUser])
+}, [newUser, c])
 
 
 return (
@@ -52,9 +60,9 @@ return (
                 className="site-navigation-steps"
               >
                 
-                  <Step status={status}  title="Role" />
-                  <Step status={status2} title="Info" />
-                  <Step status="wait" title="Submit" disabled />
+                  <Step status={status}  title="Choose Role" />
+                  <Step status={status2} title="Role Information" />
+                  <Step status={status3} title="Submit your Information" disabled />
               </Steps>
         </div>
   );
