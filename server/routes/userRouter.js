@@ -1,6 +1,6 @@
 const express = require('express');
 // const { sessionChecker, sessionLoger, layoutchanger } = require('../middleware/commonmiddleware');
-const { User } =  require('../db/models')
+const { User, Marker } =  require('../db/models')
 const router = express.Router();
 const { sessionChecker, sessionLoger } = require('../middlewares/common');
 // const { User, Post } = require('../db/models');
@@ -15,20 +15,23 @@ router.get('/signup', async (req, res) => {
 
 router.post('/signup', async (req, res) => {
   console.log('BACK', req.body);
-  const { name, password, role, email } = req.body;
+  const { name, password, role, email, money } = req.body;
+  
   try{
     const curUser = await User.findOne({where: {email}})
     console.log(curUser)
     if(curUser){
       return res.status(500).json({'ok': false})
     } else {
-      const user = await User.create({name,role , password, email})
+      money!==""?Number(money):0
+      console.log({name, role, password, email, money:money})
+      const user = await User.create({name, role, password, email, money:money||0})
       console.log('user idddddddddddddddddddddddddddddddddddddddddddddddddddddd', user.id)
       res.json(user.id)
     }
   }
   catch(e){
-    res.json(e)
+    console.log(e)
   }
 
   // try {
@@ -67,7 +70,7 @@ router.post('/signin', async (req, res) => {
     if(user){
       req.session.user = user.name;
       req.session.uid = user.id;
-      return res.json({userId: user.id, username: user.name})
+      return res.json({userId: user.id, username: user.name, role: user.role, money: user.money})
     } else {
       return res.json(user)
     }
@@ -82,6 +85,7 @@ router.post('/logout',sessionChecker, (req, res) => {
   res.clearCookie('cookie');
   res.sendStatus(200)
 });
+
 
 
 // router.get('/profile/:id', async (req, res) => {
@@ -106,6 +110,20 @@ router.post('/logout',sessionChecker, (req, res) => {
 
 router.get('/me', (req, res)=>{
   req.session.user?res.json({userId: req.session.uid, username: req.session.user}):res.json(null)
+})
+
+router.post('/exUser', async (req, res) => {
+
+  const {email} = req.body
+  try {
+    const exUser = await User.findOne({where: {email}})
+    if(exUser){
+      return res.status(500).json(exUser.id)
+    }
+    res.status(200).json(null)
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 module.exports = router;

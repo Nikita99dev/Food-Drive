@@ -10,6 +10,7 @@ module.exports = {
           email: "admin@mail.ru",
           password: "expressTheBest",
           role: "admin",
+          money:0,
           createdAt: new Date(),
           updatedAt: new Date(),
         },

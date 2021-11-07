@@ -1,6 +1,6 @@
 import { takeEvery, call, put} from "@redux-saga/core/effects"
 import { actions } from "../slices/rootReducer";
-import { findData, findOneMap, recordMap  } from "./tools";
+import { AllMaps, findData, findOneMap, recordMap  } from "./tools";
 
 function* recMap({payload }){
   console.log('rec map payload', payload)
@@ -61,7 +61,20 @@ function* getOneMap({payload}){
   }
 }
 
+function* getAllMaps({payload}){
+  console.log(payload)
+
+  try {
+    const maps = yield call(AllMaps, 'http://localhost:3001/map/getAll')
+    console.log(maps)
+    yield put(actions.getAppMapsFulfilled(maps))
+  } catch (error) {
+    yield put(actions.getAllMapsRejected(error))
+  }
+}
+
 export default function* mapSaga(){
   yield takeEvery(`${actions.recordMapPending}`, recMap)
   yield takeEvery(`${actions.getMapPending}`, getOneMap)
+  yield takeEvery(`${actions.getAllMapsPending}`, getAllMaps)
 }

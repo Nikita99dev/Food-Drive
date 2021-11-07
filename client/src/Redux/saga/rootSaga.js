@@ -5,6 +5,6 @@ import mapSaga from './recMap';
 export default function* rootSaga() {
  yield all([
    userSaga(),
-   mapSaga()
+   mapSaga(),
  ])
 }

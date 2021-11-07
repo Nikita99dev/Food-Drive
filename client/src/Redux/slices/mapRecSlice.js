@@ -46,7 +46,7 @@ const MapSlice = createSlice({
     getAllMapsRejected: (state, action) => {
       state.loader = false;
       state.error = action.payload;
-    }
+    },
   }
 })
 

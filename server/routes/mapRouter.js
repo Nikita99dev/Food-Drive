@@ -52,4 +52,25 @@ router.post('/getOne', async (req, res ) => {
     res.json(error)
   }
 })
+
+router.get('/getAll', (req, res) => {
+  try {
+    const all = await Marker.findAll()
+    if(all){
+      res.json(all)
+    }
+  } catch (error) {
+    
+  }
+})
+
+router.patch('/private', async (req, res) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+})
+
+
 module.exports = router

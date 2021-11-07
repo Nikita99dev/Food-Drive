@@ -1,12 +1,19 @@
 import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
+import { useHistory } from "react-router"
 import { actions } from "../../../Redux/slices/rootReducer"
+import { Container } from "../../profile/styled";
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 
-export default function Final({newUser, user, history}){
+export default function Final({newUser, user}){
 
   const dispatch = useDispatch()
 
+  const history = useHistory()
   useEffect(()=>{
     user = '';
   },[])
@@ -25,29 +32,64 @@ export default function Final({newUser, user, history}){
     }
 
     useEffect(()=>{
-      if(user?.user?.id ){
+      if(user?.user?.id && newUser.role === "receiver" ){
         dispatch(actions.recordMapPending({newUser, user, history}))
       } 
       },[user])
       
   return (
-    <div>
+    <Container>
+      <h2>Make sure everything is correct</h2>
     {newUser.role === 'donor'?
-    <div>
-      <p>{newUser.name}</p>
-      <p>{newUser.email}</p>
-      <p>{newUser.address}</p>
-      <p>{newUser.money}</p>
-      <button onClick={submitHandler} >Submit</button>
-    </div>
-    :<div>
-      <p>{newUser.name}</p>
-      <p>{newUser.email}</p>
-      <p>{newUser.address}</p>
-      <p>{newUser.role}</p>
-      <button onClick={submitHandler}>Submit</button>
-    </div>
+    <Container>
+      <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+        <Typography sx={{ fontSize: 20 }} color="text.secondary" gutterBottom>
+        Name: {newUser.name}
+        </Typography>
+        <Typography variant="h5" component="div">
+        Email: {newUser.email}
+        </Typography>
+        {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        Address: {newUser.address}
+        </Typography> */}
+        <Typography variant="body2">
+        Money: {newUser.money}
+          <br />
+          Role: {newUser.role}
+        </Typography>
+      </CardContent>
+      <CardActions>
+       <button className="btn btn-primary" onClick={submitHandler} >Submit</button>
+      </CardActions>
+    </Card>
+    </Container>
+    :<Container>
+      <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+      Name: {newUser.name}
+        </Typography>
+        <Typography variant="h5" component="div">
+      Email: {newUser.email}
+        </Typography>
+        <Typography sx={{ mb: 1.5 }} color="text.secondary">
+      Address: {newUser.address}
+        </Typography>
+        <Typography variant="body2">
+       Money: {newUser.money}
+          <br />
+        Role: {newUser.role}
+        </Typography>
+      </CardContent>
+      <CardActions>
+       <button className="btn btn-primary"  onClick={submitHandler} >Submit</button>
+      </CardActions>
+    </Card>
+    </Container>
     }
-    </div>
+    </Container>
+    
   )
 }
+

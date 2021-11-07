@@ -21,7 +21,7 @@ export default function FirstStep({f,c, setNewUser}) {
   return (
     <div style={{'margin':'5px'}}>
       <h1>Choose your Role</h1>
-    <Container style={{'display': 'flex', 'flex-direction': 'row', 'justify-content':"space-between" }}>
+    <Container style={{'display': 'flex', 'flex-direction': 'row', 'justify-content':"space-around" }}>
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
           <CardMedia
@@ -63,7 +63,7 @@ export default function FirstStep({f,c, setNewUser}) {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="medium" variant="contained" onClick={onClick} value='reciver' color="primary">
+        <Button size="medium" variant="contained" onClick={onClick} value='receiver' color="primary">
           Recive
         </Button>
       </CardActions>

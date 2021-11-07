@@ -59,7 +59,19 @@ const userSlice = createSlice({
     loginInitialRejected: (state, action) => {
       state.loader = false;
       state.error = action.payload;
-    }
+    },
+    occupancyPending: (state, action) => {
+      state.loader = true;
+    },
+    occupancyFullfilled: (state, action) => {
+      state.loader = false;
+      state.error = null;
+      state.user = action.payload;
+    },
+    occupancyRejected: (state, action) => {
+      state.error = action.payload;
+      state.loader = false;
+    },
   },
 });
 

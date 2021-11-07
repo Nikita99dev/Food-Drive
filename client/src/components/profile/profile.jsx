@@ -18,7 +18,7 @@ export default function Profile () {
 
 
   useEffect(()=>{
-    if(user?.user?.userId){
+    if(user?.user?.role === 'receiver'){
       dispatch(actions.getMapPending(user.user.userId))
     }
   }, [user])
@@ -31,17 +31,30 @@ export default function Profile () {
 
   return (
     <>
+    {user.user.role === 'receiver'?
+    <Container>
     <Descriptions title="User Information">
     <Descriptions.Item label="UserName">{user?.user?.username}</Descriptions.Item>
     <Descriptions.Item label="Live">{recMap.map.address}</Descriptions.Item>
     <Descriptions.Item label="Status">{recMap.map.isApproved?"Approved":"Under review"}</Descriptions.Item>
     <Descriptions.Item label="Coordinates">
-    {[recMap.map.latitude, ' : ',recMap.map.longitude] }
+    {[recMap.map.latitude, ' : ',recMap.map.longitude]}
     </Descriptions.Item>
   </Descriptions>
   <Container >
     {recMap.loader ?<CircularColor/>: recMap.map.longitude?<Main points={[+recMap.map.longitude, +recMap.map.latitude]}/>:""}
     </Container>
+    </Container>
+    :<Container>
+    <Descriptions title="User Information">
+    <Descriptions.Item label="UserName">{user?.user?.username}</Descriptions.Item>
+    <Descriptions.Item label="Role">{user?.user?.role}</Descriptions.Item>
+    <Descriptions.Item label="Money Donated">
+      {user?.user?.money}
+    </Descriptions.Item>
+  </Descriptions>
+    </Container>
+  }
   </>
   )
 }

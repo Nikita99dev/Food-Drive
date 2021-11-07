@@ -8,9 +8,9 @@ const { Step } = Steps;
 
 export const ProgressBar = ({f, c, newUser }) => {
 
-  useEffect(()=>{
-    console.log(c)
-  },[c])
+  // useEffect(()=>{
+  //   console.log(c)
+  // },[c])
   
   const [status, setStatus] = useState('wait')
   const [status2, setStatus2] = useState('wait')
@@ -62,7 +62,7 @@ return (
                 
                   <Step status={status}  title="Choose Role" />
                   <Step status={status2} title="Role Information" />
-                  <Step status={status3} title="Submit your Information" disabled />
+                  <Step status={status3} title="Submit your Information" />
               </Steps>
         </div>
   );

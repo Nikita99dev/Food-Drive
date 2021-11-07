@@ -4,7 +4,7 @@ import {
 } from "react-router-dom";
 import { useHistory } from "react-router";
 import { actions } from "../../Redux/slices/rootReducer";
-import { UserOutlined, LoginOutlined, UserAddOutlined, GlobalOutlined, HomeOutlined, LogoutOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { UserOutlined, LoginOutlined, UserAddOutlined, GlobalOutlined, LogoutOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 
 
 export default function Header(){

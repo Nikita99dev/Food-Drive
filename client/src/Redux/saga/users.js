@@ -1,15 +1,18 @@
-import { takeEvery, call, put } from "@redux-saga/core/effects";
+
+import { takeEvery, call, put, debounce, throttle } from "@redux-saga/core/effects";
 import { actions } from "../slices/rootReducer";
-import { InitUser, logUser, regUser, userLogout } from "./tools";
+import { existance, InitUser, logUser, regUser, userLogout } from "./tools";
 
 function* registerUser({payload}){
-  console.log('-----------------', payload.newUser)
+  console.log('-----------------', payload.history,payload.newUser)
  try {
    const dbUser = yield call(regUser, "http://localhost:3001/users/signup", payload.newUser)
 
    if(dbUser) {
      yield put(actions.registerUserFulfilled({id:dbUser}))
-    //  payload.history.replace('/signin')
+     if(payload.newUser.role === 'donor'){ 
+       payload.history.replace('/succes')
+     }
     } else {
       yield put(actions.registerUserRejected(dbUser))
       payload.history.replace('/signup')
@@ -62,16 +65,33 @@ function* initialUser() {
     if(curUser){
       yield put(actions.loginInitialFulfilled(curUser))
     } else {
-      yield put(actions.logoutUserRejected(false))
+      yield put(actions.logoutUserRejected(null))
     }
 
   }catch (e) {
     yield put(actions.loginInitialRejected(e))
   }
 }
+
+function* exsistanceUser({payload}) {
+console.log('email from exuser', 'email from saga', payload)
+  try {
+    const existed = yield call(existance, 'http://localhost:3001/users/exUser', payload)
+    console.log('existance', existed)
+    if(existed){
+      yield put(actions.occupancyRejected(existed))
+    } else {
+      yield put(actions.occupancyFullfilled())
+    }
+  }catch(e) { 
+    yield put(actions.occupancyRejected(e))
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(`${actions.registerUserPending}`,registerUser)
   yield takeEvery(`${actions.loginUserPending}`,loginUser)
   yield takeEvery(`${actions.logoutUserPending}`,logoutUser)
   yield takeEvery(`${actions.loginInitialPending}`, initialUser)
+  yield debounce(500,`${actions.occupancyPending}`, exsistanceUser)
 }

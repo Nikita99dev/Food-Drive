@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router";
 // import { useDispatch } from "react-redux";
@@ -26,32 +26,19 @@ export default function MainSignUp() {
   
   const [newUser, setNewUser] = useState(initstate)
   
-  // console.log('user from thr sign up main', user)
+
   const history = useHistory() 
-  // useEffect(()=>{
-  //   user = '';
-  // },[])
+
 
   const user = useSelector(state=>state.user)
-  console.log('user from thr sign up main', user)
+
   const [state, setState] = useState(0)
  
   
   const Change = (e) => {
     setState(prev=>prev = e)
-    // console.log(state)
-    // history.replace(`/custom/${e}`)
   }
 
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-  //   dispatch(actions.registerUserPending({newUser, history}))
-  // }
-  // useEffect(()=>{
-  //   console.log(state)
-  //   history.push(`/custom/${state}`)
-  // },[state])
-  
 return (
   <div style={{'margin': '5px'}} >
   <ProgressBar f={Change} c={state} newUser={newUser}/> 

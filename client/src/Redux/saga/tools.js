@@ -164,6 +164,33 @@ export async function findOneMap(url, userId){
     throw error
   }
 }
+
+export async function existance(url, email) {
+  try {
+    const exuser = await fetch(url, {
+      method: 'POST',
+      headers:{
+        "Content-Type": "application/json"
+      },
+      credentials: 'include',
+      body: JSON.stringify({email:email})
+    })
+    const res = exuser.json()
+    return res
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function AllMaps(url){
+  try {
+    const maps = await fetch(url)
+    const res = maps.json()
+    return res
+  } catch (error) {
+    
+  }
+}
 // export const initialUser = () => async(dispatch) => {
 //   dispatch(actions.loginUserPending());
 

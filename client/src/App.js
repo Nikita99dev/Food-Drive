@@ -13,8 +13,12 @@ import SubmitSeccus from "./components/common/succes";
 import Warning from "./components/common/warning";
 import Profile from "./components/profile/profile";
 import MainSignUp from "./components/Auth/signUpForms/singUpMain";
+import { Layout } from "antd";
+import dotenv from "dotenv";
+dotenv.config()
 
 function App() {
+  console.log('rec map payload', process.env.SERVER_API, process.env.YANDEX_API)
   const history = useHistory()
   const dispatch = useDispatch();
 
@@ -30,6 +34,7 @@ function App() {
 
 
   return (
+    <Layout style={{ minHeight: '100vh' }}>
     <div className="m-2">
       <Router>
         <Header />
@@ -73,6 +78,7 @@ function App() {
         </Switch>
       </Router>
     </div>
+    </Layout>
   );
 }
 
