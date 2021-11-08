@@ -23,6 +23,7 @@ const mapState = {
 
 
 export default function Main({points}){
+  console.log('pppppppppppppppppppp', points)
 
  console.log(points, 'fro  ')
   if(!points?.length) points = mapState.center

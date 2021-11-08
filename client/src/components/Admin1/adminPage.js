@@ -15,10 +15,11 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import Main from "../Main/Main";
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170,format: (value) => value.toLocaleString('en-US')  },
-  { id: 'Name', label: 'Name', minWidth: 100 },
+  { id: 'name', label: 'Name', minWidth: 100 },
   {
     id: 'address',
     label: 'Address',
@@ -47,7 +48,7 @@ const style = {
   width: 400,
   bgcolor: 'background.paper',
   border: '2px solid #000',
-  boxShadow: 24,
+  boxShadow: 90,
   p: 4,
 };
 
@@ -70,10 +71,14 @@ export default function AdminCab() {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const [id, setId] = useState(1)
   
   const dispatch = useDispatch()
 
-
+const smartView = (e) => {
+ setId(prev=> prev = e.target.parentElement.id)
+}
   const recMap = useSelector(state=>state.Recmap)
 
 
@@ -116,7 +121,7 @@ export default function AdminCab() {
               .map((row) => {
                 return (
                   <>
-                  <TableRow hover onClick={handleOpen} role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow hover onClick={function(e){smartView(e); handleOpen()}} role="checkbox" tabIndex={-1} id={row.id} key={row.code}>
                     {columns.map((column) => {
                       const value = row[column.id];
                       return (
@@ -155,11 +160,33 @@ export default function AdminCab() {
   >
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        Text in a modal
+        {recMap.map.length && id?recMap.map.map(el=>{
+          if(el.id === +id) {
+            return el.name
+          }else {
+            return null
+          }})
+          :'non'}
+      </Typography>
+      <Typography id="modal-modal-discription" sx={{ mt: 2 }}>
+        {recMap.map.length && id?recMap.map.map(el=>{
+          if(el.id === +id) {
+            return 'Lives:' + " " +  el.address
+          }else {
+            return null
+          }})
+          :'non'}
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      {recMap.map.length && id?recMap.map.map(el=>{
+          if(el.id === +id) {
+            return  <Main points={[el.longitude, el.latitude]}/>
+          }else {
+            return null
+          }})
+          :'non'}
       </Typography>
+      <button cclassName="btn btn-primary ">Submit</button>
     </Box>
   </Modal>
 </>

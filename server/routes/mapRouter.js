@@ -57,9 +57,15 @@ router.get('/getAll', async (req, res) => {
   try {
     const all = await Marker.findAll({where: {isApproved: false}, include: {model: User, rigth: true, attributes:['name']}})
     console.log(all[0].User.dataValues.name)
-    console.log(all[0])
-    if(all){
-      res.json(all)
+   const obj = []
+   all.map((el)=> {
+     obj.push(
+       {id: el.dataValues.id, address: el.dataValues.address, latitude: el.dataValues.latitude,  longitude: el.dataValues.longitude, name: el.User.dataValues.name}
+        )
+    })
+    console.log(obj)
+    if(obj[0].id){
+      res.json(obj)
     }
   } catch (error) {
     

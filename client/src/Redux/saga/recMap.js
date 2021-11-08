@@ -67,9 +67,6 @@ function* getAllMaps({payload}){
   try {
     const maps = yield call(AllMaps, 'http://localhost:3001/map/getAll')
     if(maps){
-      const users = yield call(AllUsers, 'http://localhost:3001/users/AllUs')
-      maps.map(el=>el.userId=users.map(ell=>ell.id===el.userId))
-      console.log('mappppppssssss', maps)
       yield put(actions.getAppMapsFulfilled(maps))
     }
   } catch (error) {
