@@ -1,5 +1,5 @@
 
-import { takeEvery, call, put, debounce, throttle } from "@redux-saga/core/effects";
+import { takeEvery, call, put, debounce } from "@redux-saga/core/effects";
 import { actions } from "../slices/rootReducer";
 import { existance, InitUser, logUser, regUser, userLogout } from "./tools";
 

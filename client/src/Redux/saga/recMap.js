@@ -1,6 +1,6 @@
 import { takeEvery, call, put} from "@redux-saga/core/effects"
 import { actions } from "../slices/rootReducer";
-import { AllMaps, findData, findOneMap, recordMap  } from "./tools";
+import { AllMaps, AllUsers, findData, findOneMap, recordMap  } from "./tools";
 
 function* recMap({payload }){
   console.log('rec map payload', payload)
@@ -66,8 +66,12 @@ function* getAllMaps({payload}){
 
   try {
     const maps = yield call(AllMaps, 'http://localhost:3001/map/getAll')
-    console.log(maps)
-    yield put(actions.getAppMapsFulfilled(maps))
+    if(maps){
+      const users = yield call(AllUsers, 'http://localhost:3001/users/AllUs')
+      maps.map(el=>el.userId=users.map(ell=>ell.id===el.userId))
+      console.log('mappppppssssss', maps)
+      yield put(actions.getAppMapsFulfilled(maps))
+    }
   } catch (error) {
     yield put(actions.getAllMapsRejected(error))
   }

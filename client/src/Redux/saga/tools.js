@@ -191,6 +191,16 @@ export async function AllMaps(url){
     
   }
 }
+
+export async function AllUsers(url){
+  try {
+    const users = await fetch(url)
+    const res = users.json()
+    return res
+  } catch (error) {
+    
+  }
+}
 // export const initialUser = () => async(dispatch) => {
 //   dispatch(actions.loginUserPending());
 

@@ -53,9 +53,11 @@ router.post('/getOne', async (req, res ) => {
   }
 })
 
-router.get('/getAll', (req, res) => {
+router.get('/getAll', async (req, res) => {
   try {
-    const all = await Marker.findAll()
+    const all = await Marker.findAll({where: {isApproved: false}, include: {model: User, rigth: true, attributes:['name']}})
+    console.log(all[0].User.dataValues.name)
+    console.log(all[0])
     if(all){
       res.json(all)
     }

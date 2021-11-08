@@ -1,4 +1,4 @@
-import { YMaps, Map, Clusterer, Placemark, GeolocationControl, ZoomControl } from "react-yandex-maps";
+import { YMaps, Map, Placemark, GeolocationControl, ZoomControl } from "react-yandex-maps";
 
 
 

@@ -15,6 +15,7 @@ import Profile from "./components/profile/profile";
 import MainSignUp from "./components/Auth/signUpForms/singUpMain";
 import { Layout } from "antd";
 import dotenv from "dotenv";
+import AdminCab from "./components/Admin1/adminPage";
 dotenv.config()
 
 function App() {
@@ -71,6 +72,9 @@ function App() {
           </Route>
           <Route path="/custom">
             <MainSignUp history={history} />
+          </Route>
+          <Route path="/admin">
+            <AdminCab/>
           </Route>
           <Route path="/">
             <Welcome />

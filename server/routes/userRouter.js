@@ -34,6 +34,16 @@ router.post('/signup', async (req, res) => {
     console.log(e)
   }
 
+  router.get('/AllUs', (req, res) => {
+    try {
+      const Users = User.findAll({where : { role: receiver}})
+      if(Users){
+        res.json(Users)
+      }
+    } catch (error) {
+      
+    }
+  })
   // try {
   //   const user = await User.findOne({ where: { name } });
   //   console.log('------------', user);
