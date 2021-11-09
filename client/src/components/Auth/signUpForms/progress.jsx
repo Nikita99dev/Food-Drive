@@ -17,7 +17,7 @@ export const ProgressBar = ({f, c, newUser }) => {
   const [status3, setStatus3] = useState('wait')
 
   useEffect(()=>{
-      if(newUser.role === 'donor' || newUser.role === 'reciver'){ 
+      if(newUser.role === 'donor' || newUser.role === 'receiver'){ 
         setStatus('finish')
       }else if (newUser.role === "" && c > 0){
         setStatus('error')

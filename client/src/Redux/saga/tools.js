@@ -201,6 +201,26 @@ export async function AllUsers(url){
     
   }
 }
+
+
+export async function delMap(url, id){
+  try {
+    const maps = await fetch(url,{
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({id})
+    })
+    if(maps.status === 200){
+      const res = maps.json()
+      return res
+    }
+  } catch (error) {
+    
+  }
+}
 // export const initialUser = () => async(dispatch) => {
 //   dispatch(actions.loginUserPending());
 

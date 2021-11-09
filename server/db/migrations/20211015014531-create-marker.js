@@ -23,6 +23,7 @@ module.exports = {
       isApproved: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
+        defaultValue: false,
       },
       userId: {
         type: Sequelize.INTEGER,

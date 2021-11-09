@@ -1,4 +1,4 @@
-const { createSlice } = require("@reduxjs/toolkit")
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   map: {},
@@ -34,19 +34,7 @@ const MapSlice = createSlice({
     getMapRejected: (state, action) => {
       state.error = action.payload;
       state.loader = false;
-    },
-    getAllMapsPending: (state, action) => {
-      state.loader = true;
-    }, 
-    getAppMapsFulfilled: (state, action) => {
-      state.loader = false;
-      state.map = action.payload;
-      state.error = null;
-    },
-    getAllMapsRejected: (state, action) => {
-      state.loader = false;
-      state.error = action.payload;
-    },
+    }
   }
 })
 

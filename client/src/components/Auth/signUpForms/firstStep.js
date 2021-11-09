@@ -6,7 +6,6 @@ import { Button, CardActionArea, CardActions } from '@mui/material';
 import { Container } from '../../profile/styled';
 import logo from '../../../images/donors-thumb-s.png'
 import logoHelp from '../../../images/volunteer-thumb-s.png'
-import { Link } from 'react-router-dom'
 
 
 

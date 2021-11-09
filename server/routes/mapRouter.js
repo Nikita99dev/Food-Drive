@@ -81,4 +81,18 @@ router.patch('/private', async (req, res) => {
 })
 
 
+router.delete('/delete', async (req, res) =>{
+  const {id} = req.body
+  try {
+    const res = await Marker.destroy({where: { id: id }})
+    console.log(res)
+    if(res){
+      return res.json({id})
+    }
+  } catch (error) {
+    res.json(error)
+  }
+})
+
+
 module.exports = router

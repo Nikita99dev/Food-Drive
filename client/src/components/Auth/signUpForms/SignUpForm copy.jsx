@@ -127,9 +127,7 @@ export default function SignUpTest({ user, setNewUser, newUser, f }) {
       </div>
     </div>
     <div className="col-12 d-flex justify-content-center">
-      {
-        !user.error  ? <button className="btn btn-primary"   onClick={onClick} type="button">Next Step</button>:'Check the forms'
-      }
+      {<button className="btn btn-primary" disabled={!newUser?.password.length > 6 || !newUser.email?.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/) || !newUser.name.match(/^[a-zA-Z_]{3,20}$/gi) || user.error?'disabled':false} onClick={onClick} type="button">Next Step</button>}
       {/* <button className="btn btn-primary"   onClick={onClick} type="button">Next Step</button> */}
     </div>
   </form>

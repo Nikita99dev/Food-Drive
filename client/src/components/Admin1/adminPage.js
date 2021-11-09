@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../Redux/slices/rootReducer";
 import CircularColor from "../Loader/Loader";
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Main from "../Main/Main";
@@ -72,14 +71,15 @@ export default function AdminCab() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const [id, setId] = useState(1)
+  const [id, setId] = useState()
   
   const dispatch = useDispatch()
 
 const smartView = (e) => {
  setId(prev=> prev = e.target.parentElement.id)
 }
-  const recMap = useSelector(state=>state.Recmap)
+
+  const admin = useSelector(state=>state.admin)
 
 
   const handleChangePage = (event, newPage) => {
@@ -91,10 +91,14 @@ const smartView = (e) => {
     setPage(0);
   };
 
+
+  const onClick = () => {
+    dispatch(actions.deleteMapPending({id}))
+  }
   return (
     <>
     {
-      recMap.loader? 
+      admin.loader? 
         <CircularColor/>
       :
       <>
@@ -115,8 +119,8 @@ const smartView = (e) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {recMap.map.length? 
-            recMap.map
+            {admin.data.length? 
+            admin.data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
                 return (
@@ -145,7 +149,7 @@ const smartView = (e) => {
       <TablePagination
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
-        count={recMap.map.length}
+        count={admin.data.length}
         rowsPerPage={rowsPerPage}
         page={page}
         onPageChange={handleChangePage}
@@ -160,33 +164,36 @@ const smartView = (e) => {
   >
     <Box sx={style}>
       <Typography id="modal-modal-title" variant="h6" component="h2">
-        {recMap.map.length && id?recMap.map.map(el=>{
+        {admin.data.length && id?admin.data.map(el=>{
           if(el.id === +id) {
             return el.name
           }else {
             return null
           }})
-          :'non'}
+          :''}
       </Typography>
       <Typography id="modal-modal-discription" sx={{ mt: 2 }}>
-        {recMap.map.length && id?recMap.map.map(el=>{
+        {admin.data.length && id?admin.data.map(el=>{
           if(el.id === +id) {
             return 'Lives:' + " " +  el.address
           }else {
             return null
           }})
-          :'non'}
+          :''}
       </Typography>
       <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      {recMap.map.length && id?recMap.map.map(el=>{
+      {admin.data.length && id?admin.data.map(el=>{
           if(el.id === +id) {
             return  <Main points={[el.longitude, el.latitude]}/>
           }else {
             return null
           }})
-          :'non'}
+          :''}
       </Typography>
-      <button cclassName="btn btn-primary ">Submit</button>
+      <span className='d-flex flex-row justify-content-around mt-5' >
+      <button  type="button" className="btn btn-primary">Approve</button>
+      <button  type="button" onClick={()=> {onClick(); handleClose();}} className="btn btn-danger">Discard</button>
+      </span>
     </Box>
   </Modal>
 </>
