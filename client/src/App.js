@@ -16,6 +16,7 @@ import MainSignUp from "./components/Auth/signUpForms/singUpMain";
 import { Layout } from "antd";
 import dotenv from "dotenv";
 import AdminCab from "./components/Admin1/adminPage";
+const { Footer, Content } = Layout
 dotenv.config()
 
 function App() {
@@ -37,8 +38,9 @@ function App() {
   return (
     <div className="m-2">
       <Router>
+        <Layout style={{ margin: 0}}>
         <Header />
-        <Layout style={{ padding: '0 20px', marginTop: 30, marginBottom: 30 }}>
+        <Content style={{padding: 24, margin: 0, minHeight: 800 }}>
         <Switch>
           <PrivateRoute path="/lk" condition={authenticated} fallback="/login">
             <Profile />
@@ -80,6 +82,8 @@ function App() {
             <Welcome />
           </Route>
         </Switch>
+        </Content>
+        <Footer style={{ textAlign: 'center',  }}>Food Drive ©2021 Created by NK</Footer>
     </Layout>
       </Router>
     </div>

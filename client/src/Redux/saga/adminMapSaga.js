@@ -31,12 +31,15 @@ function* approveMap( {payload}){
 }
 
 function* getAllMaps({payload}){
-  console.log(payload)
+  console.log('0000', payload)
 
   try {
     const maps = yield call(AllMaps, 'http://localhost:3001/map/getAll')
+    console.log('maps', maps)
     if(maps){
       yield put(actions.getAppMapsFulfilled(maps))
+    } else {
+      yield put(actions.getAppMapsFulfilled([]))
     }
   } catch (error) {
     yield put(actions.getAllMapsRejected(error))

@@ -23,6 +23,8 @@ import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
 import ShareIcon from '@mui/icons-material/Share';
+import { Empty } from 'antd';
+import { Container } from "../profile/styled";
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170,format: (value) => value.toLocaleString('en-US')  },
@@ -74,9 +76,10 @@ function createData(name, code, population, size) {
 
 export default function AdminCab() {
 
-  const [open1, setOpen1] = useState(false);
-  const handleOpen1 = () => setOpen1(true);
-  const handleClose1 = () => setOpen1(false);
+
+  const {loader} = useSelector(state=> state.map)
+  console.log('loader', loader)
+
 
   useEffect(() => {
     dispatch(actions.getAllMapsPending())
@@ -121,10 +124,12 @@ const smartView = (e) => {
     <>
     {
       admin.loader? 
+        <Container>
         <CircularColor/>
-      :
+        </Container>
+      : admin.data.length?
       <>
-    <Paper sx={{ width: '95%', overflow: 'hidden' }} className='m-5'>
+    <Paper sx={{ width: '95%', overflow: 'hidden', margin: 3 }}>
       <TableContainer sx={{ maxHeight: 440 }}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
@@ -141,7 +146,7 @@ const smartView = (e) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {admin.data.length? 
+            {
             admin.data
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((row) => {
@@ -164,7 +169,7 @@ const smartView = (e) => {
                   {/* <Button onClick={handleOpen}>Open modal</Button> */}
                   </>
                 );
-              }):null}
+              })}
           </TableBody>
         </Table>
       </TableContainer>
@@ -178,10 +183,10 @@ const smartView = (e) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
-    <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+    {/* <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 2 }}>
       <SpeedDial
         ariaLabel="SpeedDial openIcon example"
-        sx={{ position: 'absolute', bottom: 16, right: 20 }}
+        sx={{ position: 'absolute', bottom: 0, right:300 }}
         icon={<SpeedDialIcon openIcon={<EditIcon />} />}
       >
         {action.map((action) => (
@@ -192,7 +197,7 @@ const smartView = (e) => {
           />
         ))}
       </SpeedDial>
-    </Box>
+    </Box> */}
     <Modal
     open={open}
     onClose={handleClose}
@@ -229,11 +234,11 @@ const smartView = (e) => {
       </Typography>
       <span className='d-flex flex-row justify-content-around mt-5' >
       <button  type="button" onClick={()=> {approve(); handleClose();}} className="btn btn-primary">Approve</button>
-      <button  type="button" onClick={()=> {onClick(); handleClose();}} className="btn btn-danger">Discard</button>
+      <button  type="button" onClick={()=> {onClick(); handleClose();}} className="btn btn-danger">Delete</button>
       </span>
     </Box>
   </Modal>
-</>
+</> : <Container><Empty/> </Container>
 }
     </>
   );
