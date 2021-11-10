@@ -221,6 +221,25 @@ export async function delMap(url, id){
     
   }
 }
+
+export async function ApproveMap(url, id){
+  try {
+    const approved = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify({id})
+    })
+
+    const res = approved.json()
+    console.log('----======' ,res)
+    return res
+  } catch (error) {
+    
+  }
+}
 // export const initialUser = () => async(dispatch) => {
 //   dispatch(actions.loginUserPending());
 

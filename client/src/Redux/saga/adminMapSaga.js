@@ -1,19 +1,32 @@
 import { takeEvery, call, put } from '@redux-saga/core/effects'
 import { actions } from '../slices/rootReducer'
-import { AllMaps, delMap } from './tools'
+import { AllMaps, ApproveMap, delMap } from './tools'
 
 
 function* adminMap({payload}) {
   console.log('+++++', payload.id)
   try {
     const id = yield call(delMap, 'http://localhost:3001/map/delete',payload.id )
-    console.log('iddddddddddddd', id)
+    // console.log('iddddddddddddd', id)
     if(id){
-      console.log('idddddddddddddddddd', id)
+      // console.log('idddddddddddddddddd', id)
     yield put(actions.deleteMapFulfilled( payload.id))
     } 
   } catch (error) {
     throw error
+  }
+}
+
+function* approveMap( {payload}){
+  console.log('--------', payload.id)
+  try {
+    const id = yield call(ApproveMap, 'http://localhost:3001/map/update', payload.id)
+    console.log('idddd', id)
+    if(id){
+      yield put(actions.updateMapFulfilled(payload.id))
+    }
+  } catch (error) {
+    
   }
 }
 
@@ -34,4 +47,5 @@ function* getAllMaps({payload}){
 export default function* AdminMapSaga(){
   yield takeEvery(`${actions.getAllMapsPending}`, getAllMaps)
   yield takeEvery(`${actions.deleteMapPending}`, adminMap)
+  yield takeEvery(`${actions.updateMapPending}`, approveMap)
 }

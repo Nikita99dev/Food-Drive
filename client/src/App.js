@@ -35,10 +35,10 @@ function App() {
 
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
     <div className="m-2">
       <Router>
         <Header />
+        <Layout style={{ padding: '0 20px', marginTop: 30, marginBottom: 30 }}>
         <Switch>
           <PrivateRoute path="/lk" condition={authenticated} fallback="/login">
             <Profile />
@@ -80,9 +80,9 @@ function App() {
             <Welcome />
           </Route>
         </Switch>
+    </Layout>
       </Router>
     </div>
-    </Layout>
   );
 }
 

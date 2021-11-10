@@ -15,6 +15,14 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Main from "../Main/Main";
+import EditIcon from '@mui/icons-material/Edit';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170,format: (value) => value.toLocaleString('en-US')  },
@@ -51,6 +59,12 @@ const style = {
   p: 4,
 };
 
+const action = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
 
 function createData(name, code, population, size) {
   return { name, code, population, size };
@@ -59,6 +73,10 @@ function createData(name, code, population, size) {
 
 
 export default function AdminCab() {
+
+  const [open1, setOpen1] = useState(false);
+  const handleOpen1 = () => setOpen1(true);
+  const handleClose1 = () => setOpen1(false);
 
   useEffect(() => {
     dispatch(actions.getAllMapsPending())
@@ -94,6 +112,10 @@ const smartView = (e) => {
 
   const onClick = () => {
     dispatch(actions.deleteMapPending({id}))
+  }
+
+  const approve = () => {
+    dispatch(actions.updateMapPending({id:id}))
   }
   return (
     <>
@@ -156,6 +178,21 @@ const smartView = (e) => {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
+    <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+      <SpeedDial
+        ariaLabel="SpeedDial openIcon example"
+        sx={{ position: 'absolute', bottom: 16, right: 20 }}
+        icon={<SpeedDialIcon openIcon={<EditIcon />} />}
+      >
+        {action.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            tooltipTitle={action.name}
+          />
+        ))}
+      </SpeedDial>
+    </Box>
     <Modal
     open={open}
     onClose={handleClose}
@@ -191,7 +228,7 @@ const smartView = (e) => {
           :''}
       </Typography>
       <span className='d-flex flex-row justify-content-around mt-5' >
-      <button  type="button" className="btn btn-primary">Approve</button>
+      <button  type="button" onClick={()=> {approve(); handleClose();}} className="btn btn-primary">Approve</button>
       <button  type="button" onClick={()=> {onClick(); handleClose();}} className="btn btn-danger">Discard</button>
       </span>
     </Box>

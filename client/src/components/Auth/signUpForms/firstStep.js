@@ -34,7 +34,7 @@ export default function FirstStep({f,c, setNewUser}) {
               Donor
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              IF you want to hepl people
+              If you want to hepl people
             </Typography>
           </CardContent>
         </CardActionArea>
@@ -57,7 +57,7 @@ export default function FirstStep({f,c, setNewUser}) {
             Reciever
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            if you need help click here {c}
+            If you need help click here
           </Typography>
         </CardContent>
       </CardActionArea>

@@ -95,4 +95,18 @@ router.delete('/delete', async (req, res) =>{
 })
 
 
+router.post('/update', async (req, res) => {
+  const { id } = req.body
+console.log(id)
+  try {
+    const record = await Marker.update({isApproved: true}, {where: {id}})
+    console.log(record)
+    if(record){
+      res.json({record})
+    }
+  } catch (error) {
+    
+  }
+})
+
 module.exports = router

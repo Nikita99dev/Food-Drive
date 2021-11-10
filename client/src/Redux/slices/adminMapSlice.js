@@ -42,7 +42,7 @@ const AdminMapSlice = createSlice({
     },
     updateMapFulfilled: (state, action) => {
       state.loader = false;
-      state.data = action.payload;
+      state.data = state.data.filter(post=>post.id !== +action.payload);
       state.error = null;
     },
     updateMapRejected: (state, action) => {
