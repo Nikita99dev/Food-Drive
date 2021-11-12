@@ -70,11 +70,11 @@ export default function SignUpTest({ user, setNewUser, newUser, f }) {
 
   const validator7 = () => newUser.name.match(/^[a-zA-Z_]{3,20}$/gi) ? 'is-valid' : newUser.name !== '' ? 'is-invalid' : ''
   const validator8 = () => newUser.name.match(/^[A-Za-z]{3,20}$/gi) ? 'valid-feedback' : newUser.name !== '' ? 'invalid-feedback' : ''
-  const validator9 = () => newUser.name.match(/^[A-Za-z]{3,20}$/gi) ? 'Looks Good!' : newUser.name !== '' ? 'Name has to contain only characters' : ''
+  const validator9 = () => newUser.name.match(/^[A-Za-z]{3,20}$/gi) ? 'Looks Good!' : newUser.name !== '' ? 'Name has to contain only characters(3-20chars) ' : ''
   return (
   <>
   <div style={{'margin': '5px'}}>
-  <h1 className="col-md-10 mt-5 d-flex justify-content-center" >Enter You Information</h1>
+  <h1 >Enter You Information</h1>
   </div>
   <form className="row m-4 d-flex " >
   {/* onSubmit={submitHandler} */}

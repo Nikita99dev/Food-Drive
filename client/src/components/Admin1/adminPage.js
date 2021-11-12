@@ -127,7 +127,8 @@ const smartView = (e) => {
         <Container>
         <CircularColor/>
         </Container>
-      : admin.data.length?
+      : 
+      admin.data.length?
       <>
     <Paper sx={{ width: '95%', overflow: 'hidden', margin: 3 }}>
       <TableContainer sx={{ maxHeight: 440 }}>

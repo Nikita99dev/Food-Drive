@@ -106,7 +106,7 @@ return (
     </div>
     <button className="btn btn-primary m-5" onClick={sub} type="button">Check Address</button>
     </div>
-    {map.loader ?<CircularColor/>: Array.isArray(map.coords)?<Main points={map.coords}/>:""}
+    {map.loader ?<CircularColor/>: Array.isArray(map.coords)?<Main points={[[55.751574, 37.573856],[56.751574, 38.573856]]}/>:""}
     <div className="col-12">
       <div className="form-check m-3">
         <input className="form-check-input" type="checkbox" id="invalidCheck" required />

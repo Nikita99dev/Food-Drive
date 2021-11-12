@@ -16,6 +16,7 @@ import MainSignUp from "./components/Auth/signUpForms/singUpMain";
 import { Layout } from "antd";
 import dotenv from "dotenv";
 import AdminCab from "./components/Admin1/adminPage";
+import MainMAp from "./components/Main/Map";
 const { Footer, Content } = Layout
 dotenv.config()
 
@@ -36,7 +37,7 @@ function App() {
 
 
   return (
-    <div className="m-2">
+    <div className="m-0">
       <Router>
         <Layout style={{ margin: 0}}>
         <Header />
@@ -57,14 +58,14 @@ function App() {
             condition={!authenticated}
             fallback="/lk"
           >
-            <SignUp user={user} />
+            <MainSignUp user={user} />
           </PrivateRoute>
           <PrivateRoute
             path="/main"
-            condition={!authenticated}
+            condition={true}
             fallback="/login"
           >
-            <Main />
+            <MainMAp />
           </PrivateRoute>
           <Route path="/warning">
             <Warning />

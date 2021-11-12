@@ -28,7 +28,7 @@ const AdminMapSlice = createSlice({
     getAllMapsPending: (state, action) => {
       state.loader = true;
     }, 
-    getAppMapsFulfilled: (state, action) => {
+    getAllMapsFulfilled: (state, action) => {
       state.loader = false;
       state.data = action.payload;
       state.error = null;

@@ -192,6 +192,17 @@ export async function AllMaps(url){
   }
 }
 
+
+export async function AllMapsFullfiled(url){
+  try {
+    const maps = await fetch(url)
+    const res = maps.json()
+    return res
+  } catch (error) {
+    
+  }
+}
+
 export async function AllUsers(url){
   try {
     const users = await fetch(url)

@@ -34,12 +34,12 @@ function* getAllMaps({payload}){
   console.log('0000', payload)
 
   try {
-    const maps = yield call(AllMaps, 'http://localhost:3001/map/getAll')
+    const maps = yield call(AllMaps, 'http://localhost:3001/map/getAllPending')
     console.log('maps', maps)
     if(maps){
-      yield put(actions.getAppMapsFulfilled(maps))
+      yield put(actions.getAllMapsFulfilled(maps))
     } else {
-      yield put(actions.getAppMapsFulfilled([]))
+      yield put(actions.getAllMapsFulfilled([]))
     }
   } catch (error) {
     yield put(actions.getAllMapsRejected(error))
