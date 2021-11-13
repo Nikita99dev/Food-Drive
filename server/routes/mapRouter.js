@@ -55,12 +55,12 @@ router.post('/getOne', async (req, res ) => {
 
 router.get('/getAllPending', async (req, res) => {
   try {
-    const all = await Marker.findAll({where: {isApproved: false}, include: {model: User, rigth: true, attributes:['name']}})
+    const all = await Marker.findAll({ include: {model: User, rigth: true, attributes:['name']}})
     if(all[0].User.dataValues.name){
       const obj = []
       all.map((el)=> {
         obj.push(
-          {id: el.dataValues.id, address: el.dataValues.address, latitude: el.dataValues.latitude,  longitude: el.dataValues.longitude, name: el.User.dataValues.name}
+          {id: el.dataValues.id, address: el.dataValues.address, latitude: el.dataValues.latitude,  longitude: el.dataValues.longitude, name: el.User.dataValues.name, isApproved: el.dataValues.isApproved}
         )
     })
      return res.json(obj)
@@ -77,6 +77,7 @@ router.get('/getAllPending', async (req, res) => {
 router.get('/getAllFulfilled', async (req, res) => {
   try {
     const all = await Marker.findAll({where: {isApproved: true}, include: {model: User, rigth: true, attributes:['name']}})
+    console.log(all)
     if(all[0].User.dataValues.name){
       const obj = []
       all.map((el)=> {
@@ -90,7 +91,7 @@ router.get('/getAllFulfilled', async (req, res) => {
   res.json([])
 
   } catch (error) {
-    res.json([])
+    res.json(error)
   }
 })
 

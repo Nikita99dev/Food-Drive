@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit"
+import { actions } from "./rootReducer";
 
 const initialState = {
   data: [],
+  dataApproved: [],
   error: null,
   loader: false
 }
@@ -15,9 +17,10 @@ const AdminMapSlice = createSlice({
       state.loader = true;
     },
     deleteMapFulfilled: (state, action) => {
-      const index = state.data.findIndex(post=>post.id === +action.payload);
+      // const index = state.data.findIndex(post=>post.id === +action.payload && post.isApproved === false);
       // state.data.slice(0, 1)
-      state.data.splice(index,1);
+      state.data = state.data.filter(post=> post.id === +action.payload.id && action.payload.isApproved === false)
+      state.dataApproved = state.dataApproved.filter(post=> post.id === +action.payload.id && action.payload.isApproved === true)
       state.loader = false;
       state.error = null;
     },
@@ -30,7 +33,8 @@ const AdminMapSlice = createSlice({
     }, 
     getAllMapsFulfilled: (state, action) => {
       state.loader = false;
-      state.data = action.payload;
+      state.data = action.payload.filter(el=>el.isApproved === false)
+      state.dataApproved = action.payload.filter(el=>el.isApproved === true)
       state.error = null;
     },
     getAllMapsRejected: (state, action) => {
@@ -42,6 +46,7 @@ const AdminMapSlice = createSlice({
     },
     updateMapFulfilled: (state, action) => {
       state.loader = false;
+      state.dataApproved.push(state.data.filter(post=>post.id === +action.payload)[0])
       state.data = state.data.filter(post=>post.id !== +action.payload);
       state.error = null;
     },

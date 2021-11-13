@@ -39,9 +39,9 @@ function App() {
   return (
     <div className="m-0">
       <Router>
-        <Layout style={{ margin: 0}}>
+        <Layout style={{ margin: 0, minHeight:800}}>
         <Header />
-        <Content style={{padding: 24, margin: 0, minHeight: 800 }}>
+        <Content style={{ margin: 0, minHeight: 800 }}>
         <Switch>
           <PrivateRoute path="/lk" condition={authenticated} fallback="/login">
             <Profile />

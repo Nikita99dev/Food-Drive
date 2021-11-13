@@ -23,16 +23,16 @@ const getPointOptions = () => {
 
 
 export default function Main({ points }) {
-  console.log('pppppppppppppppppppp', [[1, 1], [1, 1]].flat().length)
+  // console.log('pppppppppppppppppppp', [[1, 1], [1, 1]].flat().length)
 
   // points = [[55.751574, 37.573856],[55.751574, 37.573856]]
-console.log('points', points)
+console.log('points', typeof(+points[0]) === 'number')
 
   const resolution = () => {
     if(points.flat().length < 3){
       return '300px'
     } else {
-      return '600px'
+      return '400px'
     }
   }
 
@@ -40,7 +40,7 @@ console.log('points', points)
     if(points.flat().length < 3){
       return '300px'
     } else {
-      return '600px'
+      return '400px'
     }
   }
 
@@ -49,27 +49,23 @@ console.log('points', points)
   if (!points?.length) points = mapState.center
   return (
     <div className="App">
-      <YMaps query={{ apikey: '5af5e7e3-5a13-4cf9-a295-273c77328f6b' }}>
+      <YMaps>
         <Map
-          state={{
-            center: mapState.center,
-            zoom: 9,
-            behaviors: ["default", "scrollZoom"]
-          }}
+          state={mapState}
           width = {resolution()}
 
           height={resolution2()}
-          modules={[]}>
+          modules={[]} >
           <GeolocationControl options={{ float: 'left' }} />
-          <ZoomControl options={{ float: 'right' }} />
+          <ZoomControl options={{ float: 'right' }}/>
 
 
         
-          {points.flat().length < 3 ?
+          {typeof(+points[0]) === 'number' ?
             <Placemark
               // key={idx}
-              geometry={ points }
-            // properties={getPointData(idx)}
+            geometry={ points }
+            // properties={getPointData(points)}
             // options={getPointOptions()}
             />
             :
@@ -79,13 +75,14 @@ console.log('points', points)
               groupByCoordinates: false,
               clusterDisableClickZoom: true,
               clusterHideIconOnBalloonOpen: false,
-              geoObjectHideIconOnBalloonOpen: false
+              geoObjectHideIconOnBalloonOpen: false,
+              showInAlphabeticalOrder: false,
             }}
           >
             {points.map((coordinates, idx) => (
                 // {console.log('1111111111111', coordinates)}
                 < Placemark 
-                modules={['geoObject.addon.balloon']}
+                modules={['geoObject.addon.balloon','geoObject.addon.hint']}
                 key = { idx }
                 geometry = {[coordinates.longitude, coordinates.latitude]}
                 properties = { getPointData(coordinates.name) }

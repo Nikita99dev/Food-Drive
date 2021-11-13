@@ -1,30 +1,14 @@
 import { useState} from "react";
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions } from "../../Redux/slices/rootReducer";
 import CircularColor from "../Loader/Loader";
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Main from "../Main/Main";
-import EditIcon from '@mui/icons-material/Edit';
-import SpeedDial from '@mui/material/SpeedDial';
-import SpeedDialIcon from '@mui/material/SpeedDialIcon';
-import SpeedDialAction from '@mui/material/SpeedDialAction';
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
-import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
 import { Empty } from 'antd';
 import { Container } from "../profile/styled";
+import DelApproved from "./deleteApproved";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import ApproveMap from "./adminApprove";
 
 const columns = [
   { id: 'id', label: 'ID', minWidth: 170,format: (value) => value.toLocaleString('en-US')  },
@@ -61,186 +45,52 @@ const style = {
   p: 4,
 };
 
-const action = [
-  { icon: <FileCopyIcon />, name: 'Copy' },
-  { icon: <SaveIcon />, name: 'Save' },
-  { icon: <PrintIcon />, name: 'Print' },
-  { icon: <ShareIcon />, name: 'Share' },
-];
-
-function createData(name, code, population, size) {
-  return { name, code, population, size };
-}
-
 
 
 export default function AdminCab() {
 
+  const [alignment, setAlignment] = useState('Pending');
 
-  const {loader} = useSelector(state=> state.map)
-  console.log('loader', loader)
-
+  const handleChange = (event, newAlignment) => {
+    setAlignment(newAlignment);
+  };
 
   useEffect(() => {
     dispatch(actions.getAllMapsPending())
   }, [])
   
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
-  const [id, setId] = useState()
-  
   const dispatch = useDispatch()
-
-const smartView = (e) => {
- setId(prev=> prev = e.target.parentElement.id)
-}
 
   const admin = useSelector(state=>state.admin)
 
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
-
-
-  const onClick = () => {
-    dispatch(actions.deleteMapPending({id}))
-  }
-
-  const approve = () => {
-    dispatch(actions.updateMapPending({id:id}))
-  }
   return (
     <>
-    {
-      admin.loader? 
-        <Container>
-        <CircularColor/>
-        </Container>
-      : 
-      admin.data.length?
-      <>
-    <Paper sx={{ width: '95%', overflow: 'hidden', margin: 3 }}>
-      <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  align={column.align}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {
-            admin.data
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row) => {
-                return (
-                  <>
-                  <TableRow hover onClick={function(e){smartView(e); handleOpen()}} role="checkbox" tabIndex={-1} id={row.id} key={row.code}>
-                    {columns.map((column) => {
-                      const value = row[column.id];
-                      return (
-                        <>
-                        <TableCell key={column.id} align={column.align}>
-                          {column.format && typeof value === 'number'
-                            ? column.format(value)
-                            : value}
-                        </TableCell>
-                        </>
-                      );
-                    })}
-                  </TableRow>
-                  {/* <Button onClick={handleOpen}>Open modal</Button> */}
-                  </>
-                );
-              })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={admin.data.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
-    </Paper>
-    {/* <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 2 }}>
-      <SpeedDial
-        ariaLabel="SpeedDial openIcon example"
-        sx={{ position: 'absolute', bottom: 0, right:300 }}
-        icon={<SpeedDialIcon openIcon={<EditIcon />} />}
-      >
-        {action.map((action) => (
-          <SpeedDialAction
-            key={action.name}
-            icon={action.icon}
-            tooltipTitle={action.name}
-          />
-        ))}
-      </SpeedDial>
-    </Box> */}
-    <Modal
-    open={open}
-    onClose={handleClose}
-    aria-labelledby="modal-modal-title"
-    aria-describedby="modal-modal-description"
-  >
-    <Box sx={style}>
-      <Typography id="modal-modal-title" variant="h6" component="h2">
-        {admin.data.length && id?admin.data.map(el=>{
-          if(el.id === +id) {
-            return el.name
-          }else {
-            return null
-          }})
-          :''}
-      </Typography>
-      <Typography id="modal-modal-discription" sx={{ mt: 2 }}>
-        {admin.data.length && id?admin.data.map(el=>{
-          if(el.id === +id) {
-            return 'Lives:' + " " +  el.address
-          }else {
-            return null
-          }})
-          :''}
-      </Typography>
-      <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-      {admin.data.length && id?admin.data.map(el=>{
-          if(el.id === +id) {
-            return  <Main points={[el.longitude, el.latitude]}/>
-          }else {
-            return null
-          }})
-          :''}
-      </Typography>
-      <span className='d-flex flex-row justify-content-around mt-5' >
-      <button  type="button" onClick={()=> {approve(); handleClose();}} className="btn btn-primary">Approve</button>
-      <button  type="button" onClick={()=> {onClick(); handleClose();}} className="btn btn-danger">Delete</button>
-      </span>
-    </Box>
-  </Modal>
-</> : <Container><Empty/> </Container>
-}
+    <Container>
+    <ToggleButtonGroup
+      color="primary"
+      value={alignment}
+      exclusive
+      onChange={handleChange}
+      
+    >
+      <ToggleButton value="Pending">Pending</ToggleButton>
+      <ToggleButton value="Accepted">Accepted</ToggleButton>
+      <ToggleButton value="Pending Map">Pending Map</ToggleButton>
+    </ToggleButtonGroup>
+    </Container>
+    {admin?.loader? 
+      <Container>
+      <CircularColor/>
+      </Container>
+    : 
+    admin.data.length && alignment === 'Pending'?
+      <ApproveMap admin={admin} columns={columns} />
+    : 
+    admin.dataApproved.length && alignment === 'Accepted' ?
+        <DelApproved admin={admin} columns={columns} />
+    :
+        <Container><Empty/> </Container>  
+    }
     </>
   );
 }
