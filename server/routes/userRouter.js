@@ -98,25 +98,21 @@ router.post('/logout',sessionChecker, (req, res) => {
 
 
 
-// router.get('/profile/:id', async (req, res) => {
-//   const { id } = req.params;
-//   console.log(id, req.session.uid);
-//   if (req.session.uid === Number(id)) {
-//     try {
-//       const user = await User.findByPk(Number(req.session.uid));
-//       const posts = await Post.findAll({ where: { userid: req.session.uid } });
-//       console.log('->>>>>>>>>>>>>>>>>>>>>>>>',user.name);
-//       return res.render('user/profile', { user, posts });
-//     } catch (error) {
-//       return res.render('error', {
-//         message: 'Не удалось получить записи из базы данных.',
-//         error: { error },
-//       });
-//     }
-//   }
-//   return res.redirect(`/users/${req.session.uid}`);
-// });
+router.get('/money', async (req, res) => {
 
+  try {
+    const money = await User.findAll({
+      attributes: {
+        include: [
+          [sequelize.fn('COUNT', sequelize.col('money')), 'n_money']
+        ]
+      }
+    });
+    console.log(money)
+  } catch (error) {
+    
+  }
+});
 
 router.get('/me', (req, res)=>{
   req.session.user?res.json({userId: req.session.uid, username: req.session.user}):res.json(null)

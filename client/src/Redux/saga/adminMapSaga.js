@@ -46,6 +46,15 @@ function* getAllMaps({payload}){
   }
 }
 
+function* getAllMoney({payload}){
+  try {
+    const money = yield call()
+  } catch (error) {
+    
+  }
+}
+
+
 
 export default function* AdminMapSaga(){
   yield takeEvery(`${actions.getAllMapsPending}`, getAllMaps)

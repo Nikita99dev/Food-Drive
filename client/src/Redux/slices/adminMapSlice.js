@@ -4,6 +4,7 @@ import { actions } from "./rootReducer";
 const initialState = {
   data: [],
   dataApproved: [],
+  money: 0,
   error: null,
   loader: false
 }
@@ -19,8 +20,8 @@ const AdminMapSlice = createSlice({
     deleteMapFulfilled: (state, action) => {
       // const index = state.data.findIndex(post=>post.id === +action.payload && post.isApproved === false);
       // state.data.slice(0, 1)
-      state.data = state.data.filter(post=> post.id === +action.payload.id && action.payload.isApproved === false)
-      state.dataApproved = state.dataApproved.filter(post=> post.id === +action.payload.id && action.payload.isApproved === true)
+      state.data = state.data.filter(post=> post.id !== +action.payload )
+      state.dataApproved = state.dataApproved.filter(post=> post.id !== +action.payload)
       state.loader = false;
       state.error = null;
     },
@@ -52,6 +53,18 @@ const AdminMapSlice = createSlice({
     },
     updateMapRejected: (state, action) => {
       state.error = action.payload;
+      state.loader = false;
+    },
+    countMoneyPending: (state, action) => {
+      state.loader = true;
+    },
+    countMoneyFullfiled: (state, action) => {
+      state.money = action.payload;
+      state.loader = false;
+      state.error = null;
+    },
+    countMoneyRejected: (state, action) => {
+      state.error = action.payload
       state.loader = false;
     }
   }

@@ -129,7 +129,7 @@ return (
     <Typography id="modal-modal-title" variant="h6" component="h2">
       {admin.dataApproved.length && id?admin.dataApproved.map(el=>{
         if(el.id === +id) {
-          return 'Name:' + "" + el.name
+          return `Name: ${el.name}`
         }else {
           return null
         }})
@@ -138,7 +138,7 @@ return (
     <Typography id="modal-modal-discription" sx={{ mt: 2 }}>
       {admin.dataApproved.length && id?admin.dataApproved.map(el=>{
         if(el.id === +id) {
-          return 'Lives:' + " " +  el.address
+          return `Lives: ${el.address}`
         }else {
           return null
         }})
