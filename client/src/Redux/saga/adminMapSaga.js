@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from '@redux-saga/core/effects'
 import { actions } from '../slices/rootReducer'
-import { AllMaps, ApproveMap, delMap } from './tools'
+import { AllMaps, ApproveMap, countDonated, delMap } from './tools'
 
 
 function* adminMap({payload}) {
@@ -48,7 +48,8 @@ function* getAllMaps({payload}){
 
 function* getAllMoney({payload}){
   try {
-    const money = yield call()
+    const money = yield call(countDonated, 'http://localhost:3001/money/available')
+    console.log(money)
   } catch (error) {
     
   }
@@ -60,4 +61,5 @@ export default function* AdminMapSaga(){
   yield takeEvery(`${actions.getAllMapsPending}`, getAllMaps)
   yield takeEvery(`${actions.deleteMapPending}`, adminMap)
   yield takeEvery(`${actions.updateMapPending}`, approveMap)
+  yield takeEvery(`${actions.countMoneyPending}`, getAllMoney)
 }

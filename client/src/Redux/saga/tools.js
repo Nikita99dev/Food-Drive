@@ -251,38 +251,15 @@ export async function ApproveMap(url, id){
     
   }
 }
-// export const initialUser = () => async(dispatch) => {
-//   dispatch(actions.loginUserPending());
 
-//   try {
-//     const user = await fetch('http://localhost:3001/users/me',{
-//       credentials: "include",
-// })
-//   const dbuser = await user.json()
-//   console.log('initial user from thunk', dbuser)
-//     dispatch(actions.loginUserFulfilled(dbuser))
-//   }
-//   catch (e) {
-//     dispatch(actions.loginUserRejected(e))
-//   }
-// }
-// try {
-//   const res = await fetch("http://localhost:3001/users/logout", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     credentials: "include",
-//     body: JSON.stringify(),
-//   }
-//   );
-//   console.log(res.status)
-//   if(res.status === 200){
-//   dispatch(actions.logoutUserFulfilled());
-//   history.replace('/login');
-//   }
 
-// } catch (e) {
-//   console.log(e);
-//   dispatch(actions.logoutUserRejected(e));
-// }
+export async function countDonated(url){
+  try {
+    const amount = await fetch(url)
+    if(amount){
+      return amount
+    }
+  } catch (error) {
+    
+  }
+}

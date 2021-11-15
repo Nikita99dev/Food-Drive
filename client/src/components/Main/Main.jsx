@@ -23,24 +23,25 @@ const getPointOptions = () => {
 
 
 export default function Main({ points }) {
+  console.log('from main', points)
   // console.log('pppppppppppppppppppp', [[1, 1], [1, 1]].flat().length)
 
   // points = [[55.751574, 37.573856],[55.751574, 37.573856]]
 console.log('points', typeof(+points[0]) === 'number')
 
   const resolution = () => {
-    if(points.flat().length < 3){
+    if(typeof(points[0]) === 'number'){
       return '300px'
     } else {
-      return '400px'
+      return '300px'
     }
   }
 
   const resolution2 = () => {
-    if(points.flat().length < 3){
+    if(typeof(points[0]) === 'number'){
       return '300px'
     } else {
-      return '400px'
+      return '300px'
     }
   }
 
@@ -48,7 +49,8 @@ console.log('points', typeof(+points[0]) === 'number')
 
   if (!points?.length) points = mapState.center
   return (
-    <div className="App">
+
+<div className="App" style={{margin: 'auto'}}>
       <YMaps>
         <Map
           state={mapState}
@@ -61,7 +63,7 @@ console.log('points', typeof(+points[0]) === 'number')
 
 
         
-          {typeof(+points[0]) === 'number' ?
+          {typeof(points[0]) === 'number' ?
             <Placemark
               // key={idx}
             geometry={ points }
@@ -80,9 +82,9 @@ console.log('points', typeof(+points[0]) === 'number')
             }}
           >
             {points.map((coordinates, idx) => (
-                // {console.log('1111111111111', coordinates)}
+                // console.log('1111111111111', coordinates)
                 < Placemark 
-                modules={['geoObject.addon.balloon','geoObject.addon.hint']}
+                modules={['geoObject.addon.balloon']}
                 key = { idx }
                 geometry = {[coordinates.longitude, coordinates.latitude]}
                 properties = { getPointData(coordinates.name) }

@@ -1,15 +1,31 @@
 import 'antd/dist/antd.css';
 import { Descriptions } from 'antd';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { actions } from '../../Redux/slices/rootReducer';
 import CircularColor from '../Loader/Loader';
 import Main from '../Main/Main';
 import { Container } from './styled';
 import { success } from '../common/succesSmall';
+import DonotInput from './donorInput';
+import { Modal, Button } from 'antd';
 
 
 export default function Profile () {
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   
   const user = useSelector(state=>state.user)
   const dispatch = useDispatch();
@@ -32,6 +48,7 @@ export default function Profile () {
   return (
     <>
     {user.user.role === 'receiver'?
+    !recMap.error?
     <Container>
     <Descriptions title="User Information">
     <Descriptions.Item label="UserName">{user?.user?.username}</Descriptions.Item>
@@ -46,6 +63,12 @@ export default function Profile () {
     </Container>
     </Container>
     :<Container>
+      <Descriptions title="User Information">
+        <Descriptions.Item label="UserName">{user?.user?.username}</Descriptions.Item>
+        <Descriptions.Item label="Discription">Your Records have been deleted try submit it again</Descriptions.Item>
+        </Descriptions>
+    </Container>
+    :<Container>
     <Descriptions title="User Information">
     <Descriptions.Item label="UserName">{user?.user?.username}</Descriptions.Item>
     <Descriptions.Item label="Role">{user?.user?.role}</Descriptions.Item>
@@ -53,6 +76,12 @@ export default function Profile () {
       {user?.user?.money}
     </Descriptions.Item>
   </Descriptions>
+  <Button type="primary" onClick={showModal}>
+        Donate!
+      </Button>
+      <Modal title="Submit your Amount" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+        <DonotInput onOk={handleOk} />
+      </Modal>
     </Container>
   }
   </>

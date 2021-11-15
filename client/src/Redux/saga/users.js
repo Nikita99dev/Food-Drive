@@ -74,7 +74,6 @@ function* initialUser() {
 }
 
 function* exsistanceUser({payload}) {
-console.log('email from exuser', 'email from saga', payload)
   try {
     const existed = yield call(existance, 'http://localhost:3001/users/exUser', payload)
     console.log('existance', existed)
@@ -87,6 +86,8 @@ console.log('email from exuser', 'email from saga', payload)
     yield put(actions.occupancyRejected(e))
   }
 }
+
+
 
 export default function* userSaga() {
   yield takeEvery(`${actions.registerUserPending}`,registerUser)

@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="m-0">
       <Router>
-        <Layout style={{ margin: 0, minHeight:800}}>
+        <Layout style={{ margin: 0, minHeight:800, backgroundColor: '##D8BFD8'}}>
         <Header />
         <Content style={{ margin: 0, minHeight: 800 }}>
         <Switch>

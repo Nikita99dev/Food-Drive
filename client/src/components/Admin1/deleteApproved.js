@@ -27,6 +27,7 @@ const style = {
   border: '2px solid #000',
   boxShadow: 90,
   p: 4,
+  minWidth: 450
 };
 
 export default function DelApproved({columns,admin}) {
@@ -135,7 +136,7 @@ return (
         }})
         :''}
     </Typography>
-    <Typography id="modal-modal-discription" sx={{ mt: 2 }}>
+    <Typography id="modal-modal-discription" sx={{ mt: 2, ml: 5 }}>
       {admin.dataApproved.length && id?admin.dataApproved.map(el=>{
         if(el.id === +id) {
           return `Lives: ${el.address}`
@@ -144,10 +145,10 @@ return (
         }})
         :''}
     </Typography>
-    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+    <Typography id="modal-modal-description" sx={{ mt: 2, ml: 5 }}>
     {admin.dataApproved.length && id?admin.dataApproved.map(el=>{
         if(el.id === +id) {
-          return  <Main points={[el.longitude, el.latitude]}/>
+          return  <Main points={[+el.longitude, +el.latitude]}/>
         }else {
           return null
         }})

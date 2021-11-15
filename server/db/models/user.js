@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.hasMany(models.Marker, {foreignKey: "userId"})
+      this.hasMany(models.MinusMoney, {foreignKey: "userId"})
+      this.hasMany(models.PlusMoney, {foreignKey: "userId"})
     }
   };
   User.init({
@@ -29,11 +31,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
  
-     },
-     money:{
-       type: DataTypes.INTEGER,
-       allowNull: false,
-       defaultValue: 0,
      },
     role: {
        type: DataTypes.STRING,

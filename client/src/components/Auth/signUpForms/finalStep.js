@@ -14,6 +14,7 @@ export default function Final({newUser, user}){
   const dispatch = useDispatch()
 
   const history = useHistory()
+  
   useEffect(()=>{
     user = '';
   },[])
@@ -35,7 +36,7 @@ export default function Final({newUser, user}){
       if(user?.user?.id && newUser.role === "receiver" ){
         dispatch(actions.recordMapPending({newUser, user, history}))
       } 
-      },[user])
+    },[user])
       
   return (
     <Container>
