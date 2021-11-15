@@ -27,3 +27,5 @@ FOOD DRIVE- это web-приложение для помощи нуждающи
 #### На главной странице расположена карта с отметками людей которым мы помогли
 
 <img align="center" alt="1" src="/images/2.png" />
+
+[git]: https://github.com/Nikita99dev
