@@ -175,7 +175,7 @@ export default function ApproveMap(){
     <Typography id="modal-modal-description" sx={{ mt: 2 }}>
     {admin.data.length && id?admin.data.map(el=>{
         if(el.id === +id) {
-          return  <Main points={[el.longitude, el.latitude]}/>
+          return  <Main points={[+el.longitude, +el.latitude]}/>
         }else {
           return null
         }})

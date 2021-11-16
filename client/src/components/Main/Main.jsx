@@ -27,7 +27,7 @@ export default function Main({ points }) {
   // console.log('pppppppppppppppppppp', [[1, 1], [1, 1]].flat().length)
 
   // points = [[55.751574, 37.573856],[55.751574, 37.573856]]
-console.log('points', typeof(+points[0]) === 'number')
+console.log('points', typeof(points[0]) === 'number')
 
   const resolution = () => {
     if(typeof(points[0]) === 'number'){

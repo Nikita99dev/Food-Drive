@@ -12,8 +12,7 @@ import RowRadioButtonsGroup from "./extra/amount";
 
 
 export default function SignUpTest({ user, setNewUser, newUser, f }) {
-  // console.log('-------------', newUser, user)
-
+  console.log('-------------', newUser, user)
 
   const map = useSelector((state) => state.map)
   // const user = useSelector((state)=> state.user)
@@ -27,20 +26,6 @@ export default function SignUpTest({ user, setNewUser, newUser, f }) {
   }
 
   const dispatch = useDispatch()
-
-  // let history = useHistory();
-
-
-  // useEffect(()=>{
-  // if(user?.user?.id ){
-  //   dispatch(actions.recordMapPending({newUser,user, history}))
-  // } 
-  // },[user, dispatch])
-
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-  //   dispatch(actions.registerUserPending({newUser, history}))
-  // }
 
 
   const sub = (e) => {
@@ -99,7 +84,7 @@ export default function SignUpTest({ user, setNewUser, newUser, f }) {
         {validator3()}
     </div>
     <div>
-      {user?.error && user.error === 'invalid'?<DescriptionAlert3 />:''}
+      {/* {user?.error && user.error === 'invalid'?<DescriptionAlert3 />:''} */}
     </div>
     </div>
     {newUser.role === 'receiver'?

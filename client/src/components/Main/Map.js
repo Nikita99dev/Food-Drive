@@ -46,9 +46,10 @@ export default function MainMAp() {
         <Container
           style={{ backgroundColor: "white", borderRadius: 20, margin: "auto",  padding: 20 , minWidth: 600}}
           >
-          <Button variant="contained" size="medium">
+          <Button variant="contained" size="small">
             <Link to="signup">
               <h6>Help Them Too </h6>
+              <br/>
             </Link>
             </Button>
           <StyledDiv>
@@ -57,9 +58,6 @@ export default function MainMAp() {
               <Main points={maps} />
             </StyledDiv>
             <br />
-            {/* <StyledDiv>
-    <Main points={maps2}/>
-    </StyledDiv> */}
           </StyledDiv>
         </Container>
       </Paper>

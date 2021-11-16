@@ -1,11 +1,15 @@
-import { lightBlue } from "@mui/material/colors";
-import { flexbox } from "@mui/system";
 import { Input, Button } from "antd";
 import { Radio } from 'antd';
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actions } from "../../Redux/slices/rootReducer";
 
 
-export default function DonotInput() {
+export default function DonotInput({onOk}) {
+
+  const {userId} = useSelector(state=> state.user.user)
+
+  const dispatch = useDispatch()
 
   const [state, setState ] = useState(0);
 
@@ -15,9 +19,10 @@ const OnClick = (e) => {
 }
 
 const OnChange = (e) => {
-  
     setState(prev=>prev = e.target.value.split().filter(el=>+el))
 }
+
+
   return (
   <>
   <div style={{display: 'flex', 'flex-direction': 'column', 'justify-content': 'center'}}>
@@ -34,7 +39,7 @@ const OnChange = (e) => {
     <br />
     <Input prefix="₽" onChange={OnChange} value={state} suffix="RUB" />
     <div style={{"margin": "5px", "display": "flex", "justify-content":"center" }}>
-    <Button type="primary">Donate</Button>
+    <Button type="primary" onClick={()=>{dispatch(actions.updateDonationPending({state, userId}));onOk() }} >Donate</Button>
     </div>
     </div>
     </div>

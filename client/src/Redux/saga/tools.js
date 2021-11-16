@@ -263,3 +263,24 @@ export async function countDonated(url){
     
   }
 }
+
+export async function updateDonation(url, payload){
+  console.log('payload', payload)
+
+  try {
+    const money = await fetch(url, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      credentials: "include",
+      body: JSON.stringify(payload)
+    })
+    if(money.status === 200){
+      const res = await money.json()
+      return res
+    } else return null
+  } catch (error) {
+    throw error
+  }
+}

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {},
+  money: 0,
   loader: false,
   error: null,
 };
@@ -72,6 +73,18 @@ const userSlice = createSlice({
       state.error = action.payload;
       state.loader = false;
     },
+    updateDonationPending: (state, action) => {
+      state.loader = true;
+    },
+    updateDonationFulfilled: (state, action) => {
+      state.user.money = action.payload;
+      state.error = null;
+      state.loader = false;
+    },
+    updateDonationRejected: (state, action ) => {
+      state.loader = false;
+      state.error = action.payload;
+    }
   },
 });
 

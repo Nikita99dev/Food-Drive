@@ -4,6 +4,10 @@ import { message} from 'antd';
   message.success(info);
 };
 
+export const error = ({info}) => {
+  message.error(info);
+};
+
 // export default function succesSmall() {
 //   return (
 //      <Space>

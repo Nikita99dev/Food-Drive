@@ -1,7 +1,7 @@
 
 import { takeEvery, call, put, debounce } from "@redux-saga/core/effects";
 import { actions } from "../slices/rootReducer";
-import { existance, InitUser, logUser, regUser, userLogout } from "./tools";
+import { existance, InitUser, logUser, regUser, updateDonation, userLogout } from "./tools";
 
 function* registerUser({payload}){
   console.log('-----------------', payload.history,payload.newUser)
@@ -33,7 +33,7 @@ function* loginUser( {payload} ) {
       payload.history.replace('/lk')
     }else  {
       yield put(actions.loginUserRejected('invalid'))
-      payload.history.replace('/warning')
+    payload.history.replace('/login')
     }
     
  } catch(e){
@@ -42,16 +42,17 @@ function* loginUser( {payload} ) {
  } 
 }
 
-function* logoutUser(payload) {
-  console.log('payload', payload.payload.history)
+function* logoutUser({payload}) {
+  console.log('payload', payload.history)
   try{
     const res = yield call(userLogout, "http://localhost:3001/users/logout")
+    console.log('7777777777777777777777777777', res)
     if(res){
       yield put(actions.logoutUserFulfilled())
-      payload.payload.history.push('/login')
+      payload.history.replace('/login')
     } else {
       yield put(actions.logoutUserRejected(res))
-      payload.replace('/login')
+      payload.history.replace('/login')
     }
   } catch (e) {
     yield put(actions.logoutUserRejected(e))
@@ -87,6 +88,20 @@ function* exsistanceUser({payload}) {
   }
 }
 
+function* updateMoney({payload}){
+  console.log(payload)
+  try {
+    const added = yield call(updateDonation, 'http://localhost:3001/money/update' , payload )
+    console.log('added', added)
+    if(typeof(added) === 'number'){
+      yield put(actions.updateDonationFulfilled(added))
+    } else {
+      yield put(actions.updateDonationFulfilled(0))
+    }
+  } catch (error) {
+    yield put(actions.updateDonationFulfilled(error))
+  }
+}
 
 
 export default function* userSaga() {
@@ -95,4 +110,5 @@ export default function* userSaga() {
   yield takeEvery(`${actions.logoutUserPending}`,logoutUser)
   yield takeEvery(`${actions.loginInitialPending}`, initialUser)
   yield debounce(500,`${actions.occupancyPending}`, exsistanceUser)
+  yield takeEvery(`${actions.updateDonationPending}`, updateMoney)
 }
