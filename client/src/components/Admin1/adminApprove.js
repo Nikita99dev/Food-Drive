@@ -16,6 +16,7 @@ import Modal from '@mui/material/Modal';
 import Main from "../Main/Main";
 import { Empty } from 'antd';
 import { Container } from "../profile/styled";
+import CircularColor from "../Loader/Loader";
 
 
 const columns = [
@@ -90,7 +91,9 @@ export default function ApproveMap(){
   const approve = () => {
     dispatch(actions.updateMapPending({id:id}))
   }
-
+if(admin.loader){
+  return <CircularColor/>
+}else {
   return (
     <>
     <Container>
@@ -190,4 +193,5 @@ export default function ApproveMap(){
 </Container>
       </>
   )
+}
 }
