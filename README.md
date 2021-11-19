@@ -43,7 +43,7 @@ FOOD DRIVE- это web-приложение для помощи нуждающи
 <br/>
 <br/>
 
-<img align="left" alt="gif" src="https://github.com/Nikita99dev/Food-Drive/blob/a09c85022f73cc9f2445a72ffd90d560653af673/assets/Screenshot%20from%202021-11-19%2001-11-01.png"/>
+[<img align="left" alt="gif" src="https://github.com/Nikita99dev/Food-Drive/blob/a09c85022f73cc9f2445a72ffd90d560653af673/assets/Screenshot%20from%202021-11-19%2001-11-01.png"/>][git]
 
 <br/>
 <br/>
