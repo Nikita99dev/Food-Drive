@@ -19,8 +19,8 @@ FOOD DRIVE- это web-приложение для помощи нуждающи
 <br/>
 <br/>
 
-- Фронтенд: TypeScript, React, Redux(saga), Axios, Ant Design, Styled-components, EmailJS
-- Бекенд: Node.js, Express, PostgreSQL, Sequelize ORM, Bcrypt, Multer
+- Фронтенд: React, Redux(saga), FEtch, Ant Design, Styled-components, Email.js, 
+- Бекенд: Node.js, Express, PostgreSQL, Sequelize ORM
 
 ## Пробежимся по функционалу
 
@@ -30,6 +30,7 @@ FOOD DRIVE- это web-приложение для помощи нуждающи
 
 
 <br/>
+
 #### На сайте
 
 
@@ -43,12 +44,11 @@ FOOD DRIVE- это web-приложение для помощи нуждающи
 <br/>
 <br/>
 
-[<img align="left" alt="gif" src="https://github.com/Nikita99dev/Food-Drive/blob/a09c85022f73cc9f2445a72ffd90d560653af673/assets/Screenshot%20from%202021-11-19%2001-11-01.png"/>][git]
+[<img align="right" alt="gif" src="https://github.com/Nikita99dev/Food-Drive/blob/a09c85022f73cc9f2445a72ffd90d560653af673/assets/Screenshot%20from%202021-11-19%2001-11-01.png"/>][git]
 
 <br/>
 <br/>
 <br/>
-<hr/>
 
 
 #### Выбор
@@ -69,20 +69,6 @@ FOOD DRIVE- это web-приложение для помощи нуждающи
 <br/>
 <br/>
 
----
-
----
-#### Возможности 
-  - 
-      - [X] Возможность выбора адресса 
-      - [X] Возможность выбора суммы пожертвования
-      - [X] Возможность выбора суммы пожертвования из лочного кабинета
-      - [X] Возможность выбора адресса на карте повторно если был первичный отказ
-    
-  
-
-<img align="left" alt="gif" src="https://github.com/Nikita99dev/Food-Drive/blob/a09c85022f73cc9f2445a72ffd90d560653af673/assets/Screenshot%20from%202021-11-19%2001-08-50.png"/>
-
 ### Возможности администратора
 
 - Из кабинета админа
@@ -95,7 +81,24 @@ FOOD DRIVE- это web-приложение для помощи нуждающи
     - [X] Изменение данных 
     - [X] Удаление пользователей
 
-<img align="left" alt="gif" src="https://github.com/Nikita99dev/Food-Drive/blob/162835951b0dcb74299311076b3ad2a6a4405786/assets/ezgif.com-gif-maker%20(2).gif"/>
+<img align="rigth" alt="gif" src="https://github.com/Nikita99dev/Food-Drive/blob/162835951b0dcb74299311076b3ad2a6a4405786/assets/ezgif.com-gif-maker%20(2).gif"/>
+
+
+<br/>
+<br/>
+<br/>
+
+
+#### Возможности 
+  - 
+      - [X] Возможность выбора адресса 
+      - [X] Возможность выбора суммы пожертвования
+      - [X] Возможность выбора суммы пожертвования из лочного кабинета
+      - [X] Возможность выбора адресса на карте повторно если был первичный отказ
+    
+  
+
+<img align="left" alt="gif" src="https://github.com/Nikita99dev/Food-Drive/blob/a09c85022f73cc9f2445a72ffd90d560653af673/assets/Screenshot%20from%202021-11-19%2001-08-50.png"/>
 
 
 [git]: https://github.com/Nikita99dev
